@@ -1,2 +1,2 @@
 # SIC
-SIC assembler and analyzer
+Prácticas del laboratorio de Programación de Sistemas

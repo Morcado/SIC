@@ -1,6 +1,6 @@
-C:\Users\torre\Desktop\ProyectoSIC\ProyectoSIC\obj\Debug\GramaticaLexer.cs
-C:\Users\torre\Desktop\ProyectoSIC\ProyectoSIC\obj\Debug\GramaticaParser.cs
-C:\Users\torre\Desktop\ProyectoSIC\ProyectoSIC\obj\Debug\GramaticaListener.cs
-C:\Users\torre\Desktop\ProyectoSIC\ProyectoSIC\obj\Debug\GramaticaBaseListener.cs
-C:\Users\torre\Desktop\ProyectoSIC\ProyectoSIC\obj\Debug\GramaticaVisitor.cs
-C:\Users\torre\Desktop\ProyectoSIC\ProyectoSIC\obj\Debug\GramaticaBaseVisitor.cs
+C:\Users\Morcado\Desktop\SIC\ProyectoSIC\ProyectoSIC\obj\Debug\GramaticaLexer.cs
+C:\Users\Morcado\Desktop\SIC\ProyectoSIC\ProyectoSIC\obj\Debug\GramaticaParser.cs
+C:\Users\Morcado\Desktop\SIC\ProyectoSIC\ProyectoSIC\obj\Debug\GramaticaListener.cs
+C:\Users\Morcado\Desktop\SIC\ProyectoSIC\ProyectoSIC\obj\Debug\GramaticaBaseListener.cs
+C:\Users\Morcado\Desktop\SIC\ProyectoSIC\ProyectoSIC\obj\Debug\GramaticaVisitor.cs
+C:\Users\Morcado\Desktop\SIC\ProyectoSIC\ProyectoSIC\obj\Debug\GramaticaBaseVisitor.cs

@@ -1,19 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Antlr4;
 using Antlr4.Runtime;
 using System.IO;
 
-namespace ProyectoSIC
-{
-    public partial class Principal : Form
+namespace ProyectoSIC {
+	public partial class Principal : Form
     {
         public string nombre, ruta;
 
@@ -33,7 +25,12 @@ namespace ProyectoSIC
             ActiveForm.Text = "SIC";
             DireccionArchivo.Text = "";
             tbPrograma.Enabled = true;
-        }
+
+			guardarToolStripMenuItem.Enabled = true;
+			guardarComoToolStripMenuItem.Enabled = true;
+			cerrarToolStripMenuItem.Enabled = true;
+			analizarProgramaToolStripMenuItem.Enabled = true;
+		}
 
         private void Abrir(object sender, EventArgs e)
         {
@@ -50,12 +47,17 @@ namespace ProyectoSIC
                 string[] files = open.FileName.Split((char)92);
                 string[] file = files[files.Length - 1].Split('.');
                 nombre = file[0];
-                ActualizaNumeroLineas();
+                tbPrograma_TextChanged(this, null);
                 ActiveForm.Text = "SIC - " + nombre;
                 DireccionArchivo.Text = open.FileName;
                 tbPrograma.Enabled = true;
             }
-        }
+
+			guardarToolStripMenuItem.Enabled = true;
+			guardarComoToolStripMenuItem.Enabled = true;
+			cerrarToolStripMenuItem.Enabled = true;
+			analizarProgramaToolStripMenuItem.Enabled = true;
+		}
 
         private void Guardar(object sender, EventArgs e)
         {
@@ -94,57 +96,56 @@ namespace ProyectoSIC
             ActiveForm.Text = "SIC";
             DireccionArchivo.Text = "";
             tbPrograma.Enabled = false;
-        }
+
+			guardarToolStripMenuItem.Enabled = false;
+			guardarComoToolStripMenuItem.Enabled = false;
+			cerrarToolStripMenuItem.Enabled = false;
+			analizarProgramaToolStripMenuItem.Enabled = false;
+		}
 
         private void Iniciar(object sender, EventArgs e)
         {
-            if (tbPrograma.Text != "")
-            {
-                int cont = 1;
-                List<string> results = new List<string>();
+			if (tbPrograma.Text != "") {
+				int cont = 1;
+				List<string> results = new List<string>();
 
-                foreach (string line in tbPrograma.Lines)
-                {
-                    GramaticaLexer lex = new GramaticaLexer(new AntlrInputStream(line + Environment.NewLine));
-                    CommonTokenStream tokens = new CommonTokenStream(lex);
-                    GramaticaParser parser = new GramaticaParser(tokens);
+				foreach (string line in tbPrograma.Lines) {
+					GramaticaLexer lex = new GramaticaLexer(new AntlrInputStream(line + Environment.NewLine));
+					CommonTokenStream tokens = new CommonTokenStream(lex);
+					GramaticaParser parser = new GramaticaParser(tokens);
 
-                    try
-                    {
-                        parser.prog();
-                        if (parser.NumberOfSyntaxErrors != 0)
-                        {
-                            results.Add("Error linea " + cont);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-                        throw;
-                    }
-                    cont++;
-                }
-                tbErrores.Lines = results.ToArray();
-                File.WriteAllLines(ruta + @"\" + nombre + ".t", tbErrores.Lines);
-            }
-            else
-                MessageBox.Show("Carga un programa");
+					try {
+						parser.prog();
+						if (parser.NumberOfSyntaxErrors != 0) {
+							results.Add("Error linea " + cont);
+						}
+					}
+					catch (Exception ex) {
+						MessageBox.Show(ex.ToString());
+						throw;
+					}
+					cont++;
+				}
+				tbErrores.Lines = results.ToArray();
+				File.WriteAllLines(ruta + @"\" + nombre + ".t", tbErrores.Lines);
+			}
+			else {
+				MessageBox.Show("Carga un programa");
+			}
         }
 
         private void tbPrograma_TextChanged(object sender, EventArgs e)
         {
-            ActualizaNumeroLineas();
-        }
+			tbLinea.Text = "";
+			int cont = 1;
+			foreach (string line in tbPrograma.Lines) {
+				tbLinea.Text += cont.ToString() + string.Format(Environment.NewLine);
 
-        private void ActualizaNumeroLineas()
-        {
-            tbLinea.Text = "";
-            int cont = 1;
-            foreach (string line in tbPrograma.Lines)
-            {
-                tbLinea.Text += cont.ToString() + string.Format(Environment.NewLine);
-                cont++;
-            }
-        }
+				cont++;
+			}
+		}
+
+		private void SalirToolStripMenuItem_Click(object sender, EventArgs e) => Close();
+
     }
 }

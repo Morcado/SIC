@@ -319,7 +319,7 @@
 			this.tbPrograma.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
 			this.tbPrograma.Size = new System.Drawing.Size(288, 450);
 			this.tbPrograma.TabIndex = 8;
-			this.tbPrograma.TextChanged += new System.EventHandler(this.tbPrograma_TextChanged);
+			this.tbPrograma.TextChanged += new System.EventHandler(this.TbPrograma_TextChanged);
 			// 
 			// textBoxRes
 			// 

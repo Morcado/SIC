@@ -13,7 +13,7 @@ namespace ProyectoSIC {
 	public partial class Principal : Form
 	{
 		public string nombre, ruta;
-		private Programa programa;
+		private Programa prog;
 
 		public Principal() {
 			InitializeComponent();
@@ -29,7 +29,7 @@ namespace ProyectoSIC {
 			ActiveForm.Text = "SIC";
 			DireccionArchivo.Text = "";
 			ActivaControles();
-			programa = new Programa();
+			prog = new Programa();
 		}
 
 		private void Abrir(object sender, EventArgs e){
@@ -44,11 +44,11 @@ namespace ProyectoSIC {
 				string[] files = open.FileName.Split((char)92);
 				string[] file = files[files.Length - 1].Split('.');
 				nombre = file[0];
-				tbPrograma_TextChanged(this, null);
+				TbPrograma_TextChanged(this, null);
 				ActiveForm.Text = "SIC - " + nombre;
 				DireccionArchivo.Text = open.FileName;
 				ActivaControles();
-				programa = new Programa();
+				prog = new Programa();
 			}
 		}
 
@@ -105,10 +105,10 @@ namespace ProyectoSIC {
 				int cont = 0;
 				bool correcto = true;
 				List<string> results = new List<string>();
-				programa.lineas.Clear();
+				prog.lineas.Clear();
 				foreach (string line in tbPrograma.Lines) {
 					Linea linea = new Linea(line);
-					programa.lineas.Add(linea);
+					prog.lineas.Add(linea);
 					GramaticaLexer lex = new GramaticaLexer(new AntlrInputStream(line + Environment.NewLine));
 					CommonTokenStream tokens = new CommonTokenStream(lex);
 					GramaticaParser parser = new GramaticaParser(tokens);
@@ -145,7 +145,7 @@ namespace ProyectoSIC {
 			}
 		}
 
-		private void tbPrograma_TextChanged(object sender, EventArgs e)
+		private void TbPrograma_TextChanged(object sender, EventArgs e)
 		{
 			tbLinea.Text = "";
 			int cont = 0;
@@ -170,12 +170,40 @@ namespace ProyectoSIC {
 			//}
 
 			//string start = Convert.ToInt32(programa.lineas[0].Operando).ToString("X");
+			int contador = Convert.ToInt32(prog.lineas[0].Operando);
 
 
-			for (int i = 0; i < programa.lineas.Count; i++) {
-				dataGridIntermedio.Rows.Add("hola", programa.lineas[i].Etiqueta, programa.lineas[i].CodigoOp, programa.lineas[i].Operando);
+			for (int i = 0; i < prog.lineas.Count; i++) {
+				string hexCont = contador.ToString("X");
+				string valor = "";
+				if (prog.lineas[i].Operando != "" &&char.IsDigit(prog.lineas[i].Operando[0])) {
+					valor = Convert.ToInt32(prog.lineas[i].Operando).ToString("X");
+				}
+				else {
+					valor = prog.lineas[i].Operando;
+				}
+				dataGridIntermedio.Rows.Add(hexCont, prog.lineas[i].Etiqueta, prog.lineas[i].CodigoOp, valor);
 				dataGridIntermedio.Rows[i].HeaderCell.Value = (i + 1).ToString();
-				
+				if (prog.lineas[i].CodigoOp == "RESW") {
+					contador += (Convert.ToInt32(prog.lineas[i].Operando) * 3);
+					//contador += Convert.ToInt32(Convert.ToInt32(prog.lineas[i].Operando).ToString("X") * 3);
+				}
+				else {
+					if (prog.lineas[i].CodigoOp == "RESB") {
+						contador += int.Parse(prog.lineas[i].Operando, System.Globalization.NumberStyles.HexNumber);
+					}
+					else {
+						if (prog.lineas[i].CodigoOp == "BYTE") {
+							contador += int.Parse((prog.lineas[i].Operando.Length - 3).ToString(), System.Globalization.NumberStyles.HexNumber);
+						}
+						else {
+							if (i == 0) {
+								continue;
+							}
+							contador += 3;
+						}
+					}
+				}
 			}
 		}
 

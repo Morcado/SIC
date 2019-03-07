@@ -11,6 +11,7 @@ namespace ProyectoSIC {
 		public string CodigoOp { get; set; }
 		public string Operando { get; set; }
 		public bool Indexado { get; set; }
+		public bool EsHexadecimal { get; set; }
 		public int TipoOperando;
 
 
@@ -23,19 +24,43 @@ namespace ProyectoSIC {
 			if (valores.Length == 3) {
 				Etiqueta = valores[0];
 				CodigoOp = valores[1];
-				Operando = valores[2];
+				// Convierte todos los valores a decimal
+				if (char.IsDigit(valores[2].First()) && (valores[2].Last() == 'h' || valores[2].Last() == 'H')) {
+					Operando = valores[2].Remove(valores[2].Length - 1);
+					Operando = int.Parse(Operando, System.Globalization.NumberStyles.HexNumber).ToString();
+					EsHexadecimal = true;
+				}
+				else {
+					Operando = valores[2];
+				}
 			}
 			else {
 				if (valores.Length == 2) {
-
-				Etiqueta = "";
-				CodigoOp = valores[0];
-				Operando = valores[1];
+					if (valores[1] == "RSUB") {
+						Etiqueta = "";
+						CodigoOp = valores[1];
+						Operando = "";
+					}
+					else {
+						Etiqueta = "";
+						CodigoOp = valores[0];
+						if (char.IsDigit(valores[1].First()) && valores[1].Last() == 'h' || valores[1].Last() == 'H') {
+							Operando = valores[1].Remove(valores[1].Length - 1);
+							EsHexadecimal = true;
+						}
+						else {
+							Operando = valores[1];
+						}
+					}
 				}
 				else {
-					Etiqueta = "";
-					CodigoOp = valores[0];
-					Operando = "";
+					// indexado
+					if (valores.Length == 4) {
+						Etiqueta = valores[0];
+						CodigoOp = valores[1];
+						Operando = valores[2] + valores[3];
+						Indexado = true;
+					}
 				}
 			}
 

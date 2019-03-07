@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.Menu = new System.Windows.Forms.MenuStrip();
 			this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.nuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -35,11 +36,12 @@
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.guardarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.guardarComoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.cerrarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.iniciarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.analizarProgramaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.ensamblarCodigoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.tbErrores = new System.Windows.Forms.TextBox();
 			this.Letrero1 = new System.Windows.Forms.Label();
 			this.Letrero2 = new System.Windows.Forms.Label();
@@ -50,13 +52,17 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.ArchivoActivo = new System.Windows.Forms.StatusStrip();
 			this.DireccionArchivo = new System.Windows.Forms.ToolStripStatusLabel();
-			this.syncTextBox1 = new SyncTextBox();
+			this.dataGridIntermedio = new System.Windows.Forms.DataGridView();
+			this.button1 = new System.Windows.Forms.Button();
+			this.button2 = new System.Windows.Forms.Button();
 			this.tbLinea = new SyncTextBox();
 			this.tbPrograma = new SyncTextBox();
+			this.textBoxRes = new System.Windows.Forms.TextBox();
 			this.Menu.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
 			this.ArchivoActivo.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridIntermedio)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// Menu
@@ -88,27 +94,27 @@
 			// nuevoToolStripMenuItem
 			// 
 			this.nuevoToolStripMenuItem.Name = "nuevoToolStripMenuItem";
-			this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.nuevoToolStripMenuItem.Text = "Nuevo";
 			this.nuevoToolStripMenuItem.Click += new System.EventHandler(this.Nuevo);
 			// 
 			// abrirToolStripMenuItem
 			// 
 			this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
-			this.abrirToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.abrirToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.abrirToolStripMenuItem.Text = "Abrir";
 			this.abrirToolStripMenuItem.Click += new System.EventHandler(this.Abrir);
 			// 
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+			this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
 			// 
 			// guardarToolStripMenuItem
 			// 
 			this.guardarToolStripMenuItem.Enabled = false;
 			this.guardarToolStripMenuItem.Name = "guardarToolStripMenuItem";
-			this.guardarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.guardarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.guardarToolStripMenuItem.Text = "Guardar";
 			this.guardarToolStripMenuItem.Click += new System.EventHandler(this.Guardar);
 			// 
@@ -116,34 +122,35 @@
 			// 
 			this.guardarComoToolStripMenuItem.Enabled = false;
 			this.guardarComoToolStripMenuItem.Name = "guardarComoToolStripMenuItem";
-			this.guardarComoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.guardarComoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.guardarComoToolStripMenuItem.Text = "Guardar Como";
 			this.guardarComoToolStripMenuItem.Click += new System.EventHandler(this.GuardarComo);
-			// 
-			// toolStripSeparator2
-			// 
-			this.toolStripSeparator2.Name = "toolStripSeparator2";
-			this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
 			// 
 			// cerrarToolStripMenuItem
 			// 
 			this.cerrarToolStripMenuItem.Enabled = false;
 			this.cerrarToolStripMenuItem.Name = "cerrarToolStripMenuItem";
-			this.cerrarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.cerrarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.cerrarToolStripMenuItem.Text = "Cerrar";
 			this.cerrarToolStripMenuItem.Click += new System.EventHandler(this.Cerrar);
+			// 
+			// toolStripSeparator2
+			// 
+			this.toolStripSeparator2.Name = "toolStripSeparator2";
+			this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
 			// 
 			// salirToolStripMenuItem
 			// 
 			this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-			this.salirToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.salirToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.salirToolStripMenuItem.Text = "Salir";
 			this.salirToolStripMenuItem.Click += new System.EventHandler(this.SalirToolStripMenuItem_Click);
 			// 
 			// iniciarToolStripMenuItem
 			// 
 			this.iniciarToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.analizarProgramaToolStripMenuItem});
+            this.analizarProgramaToolStripMenuItem,
+            this.ensamblarCodigoToolStripMenuItem});
 			this.iniciarToolStripMenuItem.Name = "iniciarToolStripMenuItem";
 			this.iniciarToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
 			this.iniciarToolStripMenuItem.Text = "Análisis";
@@ -152,9 +159,17 @@
 			// 
 			this.analizarProgramaToolStripMenuItem.Enabled = false;
 			this.analizarProgramaToolStripMenuItem.Name = "analizarProgramaToolStripMenuItem";
-			this.analizarProgramaToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-			this.analizarProgramaToolStripMenuItem.Text = "Analizar código fuente";
+			this.analizarProgramaToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+			this.analizarProgramaToolStripMenuItem.Text = "Analizar código";
 			this.analizarProgramaToolStripMenuItem.Click += new System.EventHandler(this.Iniciar);
+			// 
+			// ensamblarCodigoToolStripMenuItem
+			// 
+			this.ensamblarCodigoToolStripMenuItem.Enabled = false;
+			this.ensamblarCodigoToolStripMenuItem.Name = "ensamblarCodigoToolStripMenuItem";
+			this.ensamblarCodigoToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+			this.ensamblarCodigoToolStripMenuItem.Text = "Ensamblar código (paso 1)";
+			this.ensamblarCodigoToolStripMenuItem.Click += new System.EventHandler(this.EnsamblarCodigoToolStripMenuItem_Click);
 			// 
 			// tbErrores
 			// 
@@ -189,16 +204,16 @@
 			// dataGridView1
 			// 
 			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView1.Location = new System.Drawing.Point(682, 54);
+			this.dataGridView1.Location = new System.Drawing.Point(884, 54);
 			this.dataGridView1.Name = "dataGridView1";
-			this.dataGridView1.Size = new System.Drawing.Size(417, 248);
+			this.dataGridView1.Size = new System.Drawing.Size(215, 248);
 			this.dataGridView1.TabIndex = 10;
 			// 
 			// Letrero3
 			// 
 			this.Letrero3.AutoSize = true;
 			this.Letrero3.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.Letrero3.Location = new System.Drawing.Point(679, 35);
+			this.Letrero3.Location = new System.Drawing.Point(881, 35);
 			this.Letrero3.Name = "Letrero3";
 			this.Letrero3.Size = new System.Drawing.Size(123, 16);
 			this.Letrero3.TabIndex = 12;
@@ -208,7 +223,7 @@
 			// 
 			this.Letrero4.AutoSize = true;
 			this.Letrero4.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.Letrero4.Location = new System.Drawing.Point(362, 35);
+			this.Letrero4.Location = new System.Drawing.Point(336, 35);
 			this.Letrero4.Name = "Letrero4";
 			this.Letrero4.Size = new System.Drawing.Size(130, 16);
 			this.Letrero4.TabIndex = 13;
@@ -218,16 +233,16 @@
 			// 
 			this.dataGridView2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView2.Location = new System.Drawing.Point(682, 334);
+			this.dataGridView2.Location = new System.Drawing.Point(884, 334);
 			this.dataGridView2.Name = "dataGridView2";
-			this.dataGridView2.Size = new System.Drawing.Size(620, 216);
+			this.dataGridView2.Size = new System.Drawing.Size(418, 216);
 			this.dataGridView2.TabIndex = 15;
 			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
 			this.label1.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label1.Location = new System.Drawing.Point(679, 315);
+			this.label1.Location = new System.Drawing.Point(881, 315);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(68, 16);
 			this.label1.TabIndex = 16;
@@ -250,38 +265,69 @@
 			this.DireccionArchivo.Name = "DireccionArchivo";
 			this.DireccionArchivo.Size = new System.Drawing.Size(0, 17);
 			// 
-			// syncTextBox1
+			// dataGridIntermedio
 			// 
-			this.syncTextBox1.Buddy = null;
-			this.syncTextBox1.Location = new System.Drawing.Point(365, 54);
-			this.syncTextBox1.Multiline = true;
-			this.syncTextBox1.Name = "syncTextBox1";
-			this.syncTextBox1.ReadOnly = true;
-			this.syncTextBox1.Size = new System.Drawing.Size(311, 496);
-			this.syncTextBox1.TabIndex = 14;
+			this.dataGridIntermedio.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dataGridIntermedio.Location = new System.Drawing.Point(349, 53);
+			this.dataGridIntermedio.Name = "dataGridIntermedio";
+			dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 9F);
+			this.dataGridIntermedio.RowsDefaultCellStyle = dataGridViewCellStyle2;
+			this.dataGridIntermedio.Size = new System.Drawing.Size(517, 497);
+			this.dataGridIntermedio.TabIndex = 10;
+			// 
+			// button1
+			// 
+			this.button1.Location = new System.Drawing.Point(159, 518);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(112, 23);
+			this.button1.TabIndex = 18;
+			this.button1.Text = "Ensamblar (paso 1)";
+			this.button1.UseVisualStyleBackColor = true;
+			this.button1.Click += new System.EventHandler(this.EnsamblarCodigoToolStripMenuItem_Click);
+			// 
+			// button2
+			// 
+			this.button2.Location = new System.Drawing.Point(12, 518);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(103, 23);
+			this.button2.TabIndex = 18;
+			this.button2.Text = "Analizar código";
+			this.button2.UseVisualStyleBackColor = true;
+			this.button2.Click += new System.EventHandler(this.Iniciar);
 			// 
 			// tbLinea
 			// 
 			this.tbLinea.Buddy = this.tbPrograma;
 			this.tbLinea.Enabled = false;
+			this.tbLinea.Font = new System.Drawing.Font("Consolas", 9F);
 			this.tbLinea.Location = new System.Drawing.Point(12, 53);
 			this.tbLinea.Multiline = true;
 			this.tbLinea.Name = "tbLinea";
 			this.tbLinea.ReadOnly = true;
-			this.tbLinea.Size = new System.Drawing.Size(34, 497);
+			this.tbLinea.Size = new System.Drawing.Size(34, 450);
 			this.tbLinea.TabIndex = 9;
 			this.tbLinea.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			// 
 			// tbPrograma
 			// 
+			this.tbPrograma.AcceptsTab = true;
 			this.tbPrograma.Buddy = this.tbLinea;
+			this.tbPrograma.Font = new System.Drawing.Font("Consolas", 9F);
 			this.tbPrograma.Location = new System.Drawing.Point(45, 53);
 			this.tbPrograma.Multiline = true;
 			this.tbPrograma.Name = "tbPrograma";
 			this.tbPrograma.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.tbPrograma.Size = new System.Drawing.Size(311, 497);
+			this.tbPrograma.Size = new System.Drawing.Size(288, 450);
 			this.tbPrograma.TabIndex = 8;
 			this.tbPrograma.TextChanged += new System.EventHandler(this.tbPrograma_TextChanged);
+			// 
+			// textBoxRes
+			// 
+			this.textBoxRes.Location = new System.Drawing.Point(121, 520);
+			this.textBoxRes.Name = "textBoxRes";
+			this.textBoxRes.Size = new System.Drawing.Size(32, 20);
+			this.textBoxRes.TabIndex = 19;
+			this.textBoxRes.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			// 
 			// Principal
 			// 
@@ -289,12 +335,15 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.ClientSize = new System.Drawing.Size(1311, 591);
+			this.Controls.Add(this.textBoxRes);
+			this.Controls.Add(this.button2);
+			this.Controls.Add(this.button1);
 			this.Controls.Add(this.ArchivoActivo);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.dataGridView2);
-			this.Controls.Add(this.syncTextBox1);
 			this.Controls.Add(this.Letrero4);
 			this.Controls.Add(this.Letrero3);
+			this.Controls.Add(this.dataGridIntermedio);
 			this.Controls.Add(this.dataGridView1);
 			this.Controls.Add(this.tbLinea);
 			this.Controls.Add(this.tbPrograma);
@@ -313,6 +362,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
 			this.ArchivoActivo.ResumeLayout(false);
 			this.ArchivoActivo.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridIntermedio)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -334,7 +384,6 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label Letrero3;
         private System.Windows.Forms.Label Letrero4;
-        private SyncTextBox syncTextBox1;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripMenuItem iniciarToolStripMenuItem;
@@ -345,6 +394,11 @@
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
 		private System.Windows.Forms.ToolStripMenuItem analizarProgramaToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem ensamblarCodigoToolStripMenuItem;
+		private System.Windows.Forms.DataGridView dataGridIntermedio;
+		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button button2;
+		private System.Windows.Forms.TextBox textBoxRes;
 	}
 }
 

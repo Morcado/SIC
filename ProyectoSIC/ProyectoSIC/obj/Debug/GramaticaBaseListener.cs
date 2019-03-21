@@ -47,7 +47,6 @@ public partial class GramaticaBaseListener : IGramaticaListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitProg([NotNull] GramaticaParser.ProgContext context) { }
-
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="GramaticaParser.start"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -60,7 +59,6 @@ public partial class GramaticaBaseListener : IGramaticaListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitStart([NotNull] GramaticaParser.StartContext context) { }
-
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="GramaticaParser.end"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -73,7 +71,6 @@ public partial class GramaticaBaseListener : IGramaticaListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitEnd([NotNull] GramaticaParser.EndContext context) { }
-
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="GramaticaParser.input"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -86,7 +83,6 @@ public partial class GramaticaBaseListener : IGramaticaListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitInput([NotNull] GramaticaParser.InputContext context) { }
-
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="GramaticaParser.propositions"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -99,7 +95,6 @@ public partial class GramaticaBaseListener : IGramaticaListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitPropositions([NotNull] GramaticaParser.PropositionsContext context) { }
-
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="GramaticaParser.proposition"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -112,7 +107,6 @@ public partial class GramaticaBaseListener : IGramaticaListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitProposition([NotNull] GramaticaParser.PropositionContext context) { }
-
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="GramaticaParser.instruction"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -125,7 +119,6 @@ public partial class GramaticaBaseListener : IGramaticaListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitInstruction([NotNull] GramaticaParser.InstructionContext context) { }
-
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="GramaticaParser.directive"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -138,7 +131,6 @@ public partial class GramaticaBaseListener : IGramaticaListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitDirective([NotNull] GramaticaParser.DirectiveContext context) { }
-
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="GramaticaParser.label"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -151,7 +143,6 @@ public partial class GramaticaBaseListener : IGramaticaListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitLabel([NotNull] GramaticaParser.LabelContext context) { }
-
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="GramaticaParser.instr_args"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -164,7 +155,6 @@ public partial class GramaticaBaseListener : IGramaticaListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitInstr_args([NotNull] GramaticaParser.Instr_argsContext context) { }
-
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="GramaticaParser.directive_args"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -177,7 +167,6 @@ public partial class GramaticaBaseListener : IGramaticaListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitDirective_args([NotNull] GramaticaParser.Directive_argsContext context) { }
-
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="GramaticaParser.compileUnit"/>.
 	/// <para>The default implementation does nothing.</para>

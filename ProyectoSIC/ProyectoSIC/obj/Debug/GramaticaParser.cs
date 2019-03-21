@@ -144,14 +144,12 @@ public partial class GramaticaParser : Parser {
 				State = 24; start();
 				}
 				break;
-
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
 				State = 25; propositions(0);
 				}
 				break;
-
 			case 3:
 				EnterOuterAlt(_localctx, 3);
 				{
@@ -218,7 +216,6 @@ public partial class GramaticaParser : Parser {
 				State = 32; Match(ENDL);
 				}
 				break;
-
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
@@ -280,7 +277,6 @@ public partial class GramaticaParser : Parser {
 				State = 39; Match(ENDL);
 				}
 				break;
-
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
@@ -475,7 +471,6 @@ public partial class GramaticaParser : Parser {
 				State = 58; instruction();
 				}
 				break;
-
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
@@ -691,7 +686,6 @@ public partial class GramaticaParser : Parser {
 				State = 76; Match(T__0);
 				}
 				break;
-
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
@@ -699,7 +693,6 @@ public partial class GramaticaParser : Parser {
 				State = 78; Match(T__1);
 				}
 				break;
-
 			case 3:
 				EnterOuterAlt(_localctx, 3);
 				{

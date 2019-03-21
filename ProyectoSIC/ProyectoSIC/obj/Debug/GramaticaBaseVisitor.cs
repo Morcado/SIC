@@ -44,7 +44,6 @@ public partial class GramaticaBaseVisitor<Result> : AbstractParseTreeVisitor<Res
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	public virtual Result VisitProg([NotNull] GramaticaParser.ProgContext context) { return VisitChildren(context); }
-
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="GramaticaParser.start"/>.
 	/// <para>
@@ -55,7 +54,6 @@ public partial class GramaticaBaseVisitor<Result> : AbstractParseTreeVisitor<Res
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	public virtual Result VisitStart([NotNull] GramaticaParser.StartContext context) { return VisitChildren(context); }
-
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="GramaticaParser.end"/>.
 	/// <para>
@@ -66,7 +64,6 @@ public partial class GramaticaBaseVisitor<Result> : AbstractParseTreeVisitor<Res
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	public virtual Result VisitEnd([NotNull] GramaticaParser.EndContext context) { return VisitChildren(context); }
-
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="GramaticaParser.input"/>.
 	/// <para>
@@ -77,7 +74,6 @@ public partial class GramaticaBaseVisitor<Result> : AbstractParseTreeVisitor<Res
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	public virtual Result VisitInput([NotNull] GramaticaParser.InputContext context) { return VisitChildren(context); }
-
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="GramaticaParser.propositions"/>.
 	/// <para>
@@ -88,7 +84,6 @@ public partial class GramaticaBaseVisitor<Result> : AbstractParseTreeVisitor<Res
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	public virtual Result VisitPropositions([NotNull] GramaticaParser.PropositionsContext context) { return VisitChildren(context); }
-
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="GramaticaParser.proposition"/>.
 	/// <para>
@@ -99,7 +94,6 @@ public partial class GramaticaBaseVisitor<Result> : AbstractParseTreeVisitor<Res
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	public virtual Result VisitProposition([NotNull] GramaticaParser.PropositionContext context) { return VisitChildren(context); }
-
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="GramaticaParser.instruction"/>.
 	/// <para>
@@ -110,7 +104,6 @@ public partial class GramaticaBaseVisitor<Result> : AbstractParseTreeVisitor<Res
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	public virtual Result VisitInstruction([NotNull] GramaticaParser.InstructionContext context) { return VisitChildren(context); }
-
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="GramaticaParser.directive"/>.
 	/// <para>
@@ -121,7 +114,6 @@ public partial class GramaticaBaseVisitor<Result> : AbstractParseTreeVisitor<Res
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	public virtual Result VisitDirective([NotNull] GramaticaParser.DirectiveContext context) { return VisitChildren(context); }
-
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="GramaticaParser.label"/>.
 	/// <para>
@@ -132,7 +124,6 @@ public partial class GramaticaBaseVisitor<Result> : AbstractParseTreeVisitor<Res
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	public virtual Result VisitLabel([NotNull] GramaticaParser.LabelContext context) { return VisitChildren(context); }
-
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="GramaticaParser.instr_args"/>.
 	/// <para>
@@ -143,7 +134,6 @@ public partial class GramaticaBaseVisitor<Result> : AbstractParseTreeVisitor<Res
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	public virtual Result VisitInstr_args([NotNull] GramaticaParser.Instr_argsContext context) { return VisitChildren(context); }
-
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="GramaticaParser.directive_args"/>.
 	/// <para>
@@ -154,7 +144,6 @@ public partial class GramaticaBaseVisitor<Result> : AbstractParseTreeVisitor<Res
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	public virtual Result VisitDirective_args([NotNull] GramaticaParser.Directive_argsContext context) { return VisitChildren(context); }
-
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="GramaticaParser.compileUnit"/>.
 	/// <para>

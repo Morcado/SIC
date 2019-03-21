@@ -6,19 +6,27 @@ using System.IO;
 using System.Drawing;
 
 namespace ProyectoSIC {
-	public enum Instrucciones{
-		ADD, AND, COMP, DIV, J, JEQ, JGT, JLT, JSUB, LDA, LDCH, LDL, LDX, MUL, OR, RD, RSUB, STA, STCH, STL, STSW, STX, SUB, TD, TIX, WD
+	public enum Instrucciones {
+		ADD = 24, AND = 64, COMP = 40, DIV = 36, J = 60, JEQ = 48, JGT = 52,
+		JLT = 56, JSUB = 72, LDA = 00, LDCH = 80, LDL = 08, LDX = 04,
+		MUL = 32, OR = 68, RD = 216, RSUB = 76, STA = 12, STCH = 84, STL = 20,
+		STSW = 232, STX = 16, SUB = 28, TD = 224, TIX = 44, WD = 220
 	}
 
-	public partial class Principal : Form
-	{
+	public enum Directivas {
+		START, END, BYTE, WORD, RESB, RESW
+	}
+
+	public partial class Principal : Form {
 		public string nombre, ruta;
 		private Programa prog;
+		private int LongPrograma;
 
 		public Principal() {
 			InitializeComponent();
+			DesactivaControles();
 			tbPrograma.Select();
-			tbPrograma.Enabled = false;
+			LongitudPrograma.Text = "";
 		}
 
 		private void Nuevo(object sender, EventArgs e) {
@@ -28,11 +36,18 @@ namespace ProyectoSIC {
 			nombre = "";
 			ActiveForm.Text = "SIC";
 			DireccionArchivo.Text = "";
+			LongitudPrograma.Text = "";
 			ActivaControles();
 			prog = new Programa();
+			dataGridIntermedio.Rows.Clear();
+			dataGridTabSim.Rows.Clear();
+			tbErrores.Clear();
+			tbRegistros.Clear();
+			textBoxRes.BackColor = Color.White;
+			textBoxRes.Text = "";
 		}
 
-		private void Abrir(object sender, EventArgs e){
+		private void Abrir(object sender, EventArgs e) {
 			OpenFileDialog open = new OpenFileDialog {
 				InitialDirectory = Application.StartupPath + "\\example",
 				Filter = "SIC File (*.s)|*.s|All files (*.*)|*.*",
@@ -49,15 +64,21 @@ namespace ProyectoSIC {
 				DireccionArchivo.Text = open.FileName;
 				ActivaControles();
 				prog = new Programa();
+				dataGridIntermedio.Rows.Clear();
+				dataGridTabSim.Rows.Clear();
+				tbErrores.Clear();
+				tbRegistros.Clear();
+				textBoxRes.BackColor = Color.White;
+				textBoxRes.Text = "";
 			}
 		}
 
 		private void Guardar(object sender, EventArgs e) {
-			if (ruta != null){
+			if (ruta != null) {
 				File.WriteAllLines(ruta + @"\" + nombre + ".s", tbPrograma.Lines);
 				tbPrograma.DeselectAll();
 			}
-			else{
+			else {
 				guardarComoToolStripMenuItem.PerformClick();
 			}
 		}
@@ -71,23 +92,13 @@ namespace ProyectoSIC {
 			if (save.ShowDialog() == DialogResult.OK) {
 				File.WriteAllLines(save.FileName, tbPrograma.Lines);
 				tbPrograma.DeselectAll();
+				string[] files = save.FileName.Split((char)92);
+				string[] file = files[files.Length - 1].Split('.');
+				nombre = file[0];
+				ActiveForm.Text = "SIC - " + nombre;
+				DireccionArchivo.Text = save.FileName;
+				ruta = Directory.GetParent(save.FileName).ToString();
 			}
-		}
-
-		private void ActivaControles() {
-			tbPrograma.Enabled = true;
-			guardarToolStripMenuItem.Enabled = true;
-			guardarComoToolStripMenuItem.Enabled = true;
-			cerrarToolStripMenuItem.Enabled = true;
-			analizarProgramaToolStripMenuItem.Enabled = true;
-			ensamblarCodigoToolStripMenuItem.Enabled = false;
-		}
-		private void DesactivaControles() {
-			tbPrograma.Enabled = false;
-			guardarToolStripMenuItem.Enabled = false;
-			guardarComoToolStripMenuItem.Enabled = false;
-			cerrarToolStripMenuItem.Enabled = false;
-			analizarProgramaToolStripMenuItem.Enabled = false;
 		}
 
 		private void Cerrar(object sender, EventArgs e) {
@@ -97,117 +108,375 @@ namespace ProyectoSIC {
 			nombre = "";
 			ActiveForm.Text = "SIC";
 			DireccionArchivo.Text = "";
+			LongitudPrograma.Text = "";
+			dataGridIntermedio.Rows.Clear();
+			dataGridTabSim.Rows.Clear();
+			tbErrores.Clear();
+			tbRegistros.Clear();
+			textBoxRes.Clear();
 			DesactivaControles();
+			textBoxRes.BackColor = Color.White;
 		}
 
-		private void Iniciar(object sender, EventArgs e) {
+		private void SalirToolStripMenuItem_Click(object sender, EventArgs e) => Close();
+
+		private void Analizar(object sender, EventArgs e) {
 			if (tbPrograma.Text != "") {
-				int cont = 0;
+				int cont = 1;
 				bool correcto = true;
 				List<string> results = new List<string>();
 				prog.lineas.Clear();
 				foreach (string line in tbPrograma.Lines) {
-					Linea linea = new Linea(line);
-					prog.lineas.Add(linea);
-					GramaticaLexer lex = new GramaticaLexer(new AntlrInputStream(line + Environment.NewLine));
-					CommonTokenStream tokens = new CommonTokenStream(lex);
-					GramaticaParser parser = new GramaticaParser(tokens);
-
-					try {
-						parser.prog();
-						if (parser.NumberOfSyntaxErrors != 0) {
-							results.Add("Error linea " + (cont).ToString());
-							correcto = false;
+					if (EsLineaValida(line)) {
+						Linea linea = new Linea(line);
+						prog.lineas.Add(linea);
+						GramaticaLexer lex = new GramaticaLexer(new AntlrInputStream(line + Environment.NewLine));
+						CommonTokenStream tokens = new CommonTokenStream(lex);
+						GramaticaParser parser = new GramaticaParser(tokens);
+						try {
+							parser.prog();
+							if (parser.NumberOfSyntaxErrors != 0) {
+								results.Add("Error linea " + (cont).ToString());
+								correcto = false;
+								prog.lineas[prog.lineas.Count - 1].Error = true;
+							}
 						}
+						catch (Exception ex) {
+							MessageBox.Show(ex.ToString());
+							throw;
+						}
+						cont++;
+						tbPrograma.DeselectAll();
 					}
-					catch (Exception ex) {
-						MessageBox.Show(ex.ToString());
-						throw;
-					}
-
-					cont++;
 				}
 				if (correcto) {
-					ensamblarCodigoToolStripMenuItem.Enabled = true;
 					textBoxRes.BackColor = Color.Green;
-					textBoxRes.Text = "OK";
+					textBoxRes.Text = "LISTO";
 				}
 				else {
 					textBoxRes.BackColor = Color.Red;
 					textBoxRes.ForeColor = Color.White;
-					textBoxRes.Text = "NO";
+					textBoxRes.Text = "ERROR";
 					tbErrores.Lines = results.ToArray();
 					File.WriteAllLines(ruta + @"\" + nombre + ".t", tbErrores.Lines);
 				}
+				paso1ToolStripMenuItem.Enabled = true;
+				paso2ToolStripMenuItem.Enabled = false;
+				tbRegistros.Clear();
+				dataGridIntermedio.Rows.Clear();
+				dataGridTabSim.Rows.Clear();
+
 			}
 			else {
 				MessageBox.Show("Carga un programa");
 			}
 		}
 
-		private void TbPrograma_TextChanged(object sender, EventArgs e)
-		{
+		private void Paso1(object sender, EventArgs e) {
+			dataGridIntermedio.RowHeadersWidth = 60;
+			dataGridTabSim.Rows.Clear();
+			dataGridIntermedio.Rows.Clear();
+			int contador = Convert.ToInt32(prog.lineas[0].Operando);
+			string hexCont = "";
+			for (int i = 0; i < prog.lineas.Count; i++) {
+				hexCont = contador.ToString("X");
+				string valor = "";
+				if (prog.lineas[i].Operando != "" && char.IsDigit(prog.lineas[i].Operando[0]))
+					valor = Convert.ToInt32(prog.lineas[i].Operando).ToString("X");
+				else
+					valor = prog.lineas[i].Operando;
+				dataGridIntermedio.Rows.Add(hexCont, prog.lineas[i].Etiqueta, prog.lineas[i].CodigoOp, valor);
+
+				bool Repetido = false;
+				foreach (DataGridViewRow row in dataGridTabSim.Rows) {
+					if (row.Cells[0].Value.ToString() == prog.lineas[i].Etiqueta) {
+						Repetido = true;
+						break;
+					}
+				}
+				if (prog.lineas[i].Etiqueta != "" && i != 0 && !Repetido && EsEtiquetaValida(prog.lineas[i].Etiqueta))
+					dataGridTabSim.Rows.Add(prog.lineas[i].Etiqueta, hexCont);
+
+				dataGridIntermedio.Rows[i].HeaderCell.Value = (i + 1).ToString();
+				if (!prog.lineas[i].Error) {
+					if (prog.lineas[i].CodigoOp == "RESW")
+						contador += (Convert.ToInt32(prog.lineas[i].Operando) * 3);
+					else {
+						if (prog.lineas[i].CodigoOp == "RESB")
+							contador += int.Parse(prog.lineas[i].Operando, System.Globalization.NumberStyles.HexNumber);
+						else {
+							if (prog.lineas[i].CodigoOp == "BYTE") {
+								if (prog.lineas[i].Operando.StartsWith("X'") && prog.lineas[i].Operando.EndsWith("'"))
+									contador += int.Parse(Math.Round((decimal)(prog.lineas[i].Operando.Length - 3) / 2, 0).ToString(), System.Globalization.NumberStyles.HexNumber);
+								if (prog.lineas[i].Operando.StartsWith("C'") && prog.lineas[i].Operando.EndsWith("'"))
+									contador += int.Parse((prog.lineas[i].Operando.Length - 3).ToString(), System.Globalization.NumberStyles.HexNumber);
+							}
+							else {
+								if (i == 0)
+									continue;
+								contador += 3;
+							}
+						}
+					}
+				}
+			}
+			LongPrograma = int.Parse(hexCont, System.Globalization.NumberStyles.HexNumber) - int.Parse(dataGridIntermedio.Rows[0].Cells[0].Value.ToString(), System.Globalization.NumberStyles.HexNumber);
+			LongitudPrograma.Text = "Tamaño del programa: " + LongPrograma.ToString("X") + "H";
+			paso2ToolStripMenuItem.Enabled = true;
+		}
+
+		private void Paso2(object sender, EventArgs e) {
+			foreach (DataGridViewRow row in dataGridIntermedio.Rows) {
+				if (EsEtiquetaValida(row.Cells[1].Value.ToString())) {
+					if (row.Cells[2].Value.ToString() != "START" && row.Cells[2].Value.ToString() != "END" && row.Cells[2].Value.ToString() != "RESB" && row.Cells[2].Value.ToString() != "RESW") {
+						if (row.Cells[2].Value.ToString().Contains("WORD")) {
+							string word = "";
+							for (int i = row.Cells[3].Value.ToString().Length; i < 6; i++)
+								word += "0";
+							word += row.Cells[3].Value.ToString();
+							row.Cells[4].Value = word;
+						}
+						else if (row.Cells[2].Value.ToString() == "BYTE") {
+							if (row.Cells[3].Value.ToString().StartsWith("C'") && row.Cells[3].Value.ToString().EndsWith("'")) {
+								string[] operando = row.Cells[3].Value.ToString().Split((char)39);
+								string cadenaBytes = "";
+								foreach (char aux in operando[1]) {
+									int ascii = aux;
+									cadenaBytes += ascii.ToString("X");
+								}
+								row.Cells[4].Value = cadenaBytes;
+							}
+							else if (row.Cells[3].Value.ToString().StartsWith("X'") && row.Cells[3].Value.ToString().EndsWith("'")) {
+								string[] operando = row.Cells[3].Value.ToString().Split((char)39);
+								if (operando[1].Length % 2 != 0)
+									row.Cells[4].Value = "0" + operando[1];
+								else
+									row.Cells[4].Value = operando[1];
+							}
+							else {
+								row.Cells[4].Value = "Error: Sintaxis";
+							}
+						}
+						else {
+							bool existe = false;
+							foreach (Instrucciones instr in Enum.GetValues(typeof(Instrucciones))) {
+								if (row.Cells[2].Value.ToString() == instr.ToString()) {
+									existe = true;
+									if (instr.GetHashCode().ToString("X").Length == 1)
+										row.Cells[4].Value = "0" + instr.GetHashCode().ToString("X");
+									else
+										row.Cells[4].Value = instr.GetHashCode().ToString("X");
+									if (instr.ToString() == "RSUB") {
+										if (row.Cells[3].Value.ToString().Length != 0)
+											row.Cells[4].Value = "Error: Sintaxis";
+										else
+											row.Cells[4].Value += "0000";
+									}
+									else {
+										string valorSimbolo = "";
+										foreach (DataGridViewRow row2 in dataGridTabSim.Rows) {
+											if (row.Cells[3].Value.ToString().Contains(row2.Cells[0].Value.ToString())) {
+												valorSimbolo = row2.Cells[1].Value.ToString();
+												break;
+											}
+										}
+										if (valorSimbolo != "") {
+											if (row.Cells[3].Value.ToString().Contains("X")) {
+												int contador = int.Parse(valorSimbolo, System.Globalization.NumberStyles.HexNumber) + 32768;
+												row.Cells[4].Value += contador.ToString("X");
+											}
+											else {
+												row.Cells[4].Value += valorSimbolo;
+											}
+											break;
+										}
+										else {
+											row.Cells[4].Value += "FFFF Error: Simbolo no encontrado";
+											break;
+										}
+									}
+								}
+							}
+							if (!existe)
+								row.Cells[4].Value = "Error: Instruccion no valida";
+						}
+					}
+					else
+						row.Cells[4].Value = "---";
+				}
+				else {
+					row.Cells[4].Value = "Error: Sintaxis";
+				}
+			}
+			RegistroH();
+			RegistrosT();
+			RegistroE();
+			File.WriteAllLines(ruta + @"\" + nombre + ".obj", tbRegistros.Lines);
+		}
+
+		private void TbPrograma_TextChanged(object sender, EventArgs e) {
 			tbLinea.Text = "";
-			int cont = 0;
+			int cont = 1;
 			foreach (string line in tbPrograma.Lines) {
 				tbLinea.Text += cont.ToString() + string.Format(Environment.NewLine);
-
 				cont++;
 			}
 		}
 
-		private void EnsamblarCodigoToolStripMenuItem_Click(object sender, EventArgs e) {
-			var dt = new DataGridViewTextBoxColumn() { HeaderText = "Dirección", Name = "Dirección" };
-			var dt2 = new DataGridViewTextBoxColumn() { HeaderText = "Etiqueta", Name = "Etiqueta" };
-			var dt3 = new DataGridViewTextBoxColumn() { HeaderText = "Código de operación", Name = "Código de operación" };
-			var dt4 = new DataGridViewTextBoxColumn() { HeaderText = "Operando", Name = "Operando" };
-			dataGridIntermedio.Columns.AddRange(dt, dt2, dt3, dt4);
-			dataGridIntermedio.RowHeadersWidth = 60;
-
-			// hacer las operaciones de suma de contador en decimal, al imprimir hacerlo en hexadecimal
-			//if (char.IsLetter(programa.lineas[0].Operando[programa.lineas[0].Operando.Length - 1])) {
-			//	programa.lineas[0]
-			//}
-
-			//string start = Convert.ToInt32(programa.lineas[0].Operando).ToString("X");
-			int contador = Convert.ToInt32(prog.lineas[0].Operando);
-
-
-			for (int i = 0; i < prog.lineas.Count; i++) {
-				string hexCont = contador.ToString("X");
-				string valor = "";
-				if (prog.lineas[i].Operando != "" &&char.IsDigit(prog.lineas[i].Operando[0])) {
-					valor = Convert.ToInt32(prog.lineas[i].Operando).ToString("X");
+		private void RegistroH() {
+			string H = "H";
+			//Llenado con el nombre
+			if (dataGridIntermedio.Rows[0].Cells[1].Value.ToString().Length > 6) {
+				H += dataGridIntermedio.Rows[0].Cells[1].Value.ToString().Substring(0, 6);
+			}
+			else {
+				H += dataGridIntermedio.Rows[0].Cells[1].Value.ToString();
+				for (int i = dataGridIntermedio.Rows[0].Cells[1].Value.ToString().Length; i < 6; i++) {
+					H += " ";
 				}
-				else {
-					valor = prog.lineas[i].Operando;
-				}
-				dataGridIntermedio.Rows.Add(hexCont, prog.lineas[i].Etiqueta, prog.lineas[i].CodigoOp, valor);
-				dataGridIntermedio.Rows[i].HeaderCell.Value = (i + 1).ToString();
-				if (prog.lineas[i].CodigoOp == "RESW") {
-					contador += (Convert.ToInt32(prog.lineas[i].Operando) * 3);
-					//contador += Convert.ToInt32(Convert.ToInt32(prog.lineas[i].Operando).ToString("X") * 3);
-				}
-				else {
-					if (prog.lineas[i].CodigoOp == "RESB") {
-						contador += int.Parse(prog.lineas[i].Operando, System.Globalization.NumberStyles.HexNumber);
+			}
+
+			//Llenado con la dirección de inicio
+			for (int i = dataGridIntermedio.Rows[0].Cells[3].Value.ToString().Length; i < 6; i++) {
+				H += "0";
+			}
+			H += dataGridIntermedio.Rows[0].Cells[3].Value.ToString();
+
+			//Longitud del programa
+			for (int i = LongPrograma.ToString("X").Length; i < 6; i++) {
+				H += "0";
+			}
+			H += LongPrograma.ToString("X");
+			tbRegistros.Text += H + Environment.NewLine;
+		}
+
+		private void RegistrosT() {
+			List<string> T = new List<string>();
+			List<string> DirT = new List<string>();
+			string RegistroT = "";
+			foreach (DataGridViewRow row in dataGridIntermedio.Rows) {
+				if (row.Cells[2].Value.ToString() != "START") {
+					if (row.Cells[2].Value.ToString() != "RESW" && row.Cells[2].Value.ToString() != "RESB" && row.Cells[2].Value.ToString() != "END") {
+						if (!row.Cells[4].Value.ToString().StartsWith("Error")) {
+
+							if (RegistroT.Length + row.Cells[4].Value.ToString().Length <= 60) {
+								if (RegistroT == "") {
+									DirT.Add(row.Cells[0].Value.ToString());
+								}
+								if (row.Cells[4].Value.ToString().Contains(" Error: Simbolo no encontrado"))
+									RegistroT += row.Cells[4].Value.ToString().Substring(0, row.Cells[4].Value.ToString().Length - 29);
+								else
+									RegistroT += row.Cells[4].Value.ToString();
+							}
+							else {
+								T.Add(RegistroT);
+								DirT.Add(row.Cells[0].Value.ToString());
+								RegistroT = row.Cells[4].Value.ToString();
+							}
+						}
 					}
 					else {
-						if (prog.lineas[i].CodigoOp == "BYTE") {
-							contador += int.Parse((prog.lineas[i].Operando.Length - 3).ToString(), System.Globalization.NumberStyles.HexNumber);
-						}
-						else {
-							if (i == 0) {
-								continue;
+						if (row.Cells[2].Value.ToString() == "END") {
+							if (RegistroT != "") {
+								T.Add(RegistroT);
+								RegistroT = "";
 							}
-							contador += 3;
+						}
+					}
+				}
+			}
+			for (int i = 0; i < T.Count; i++) {
+				string DireccionT = "";
+				string LongitudT = "";
+
+				for (int j = DirT[i].Length; j < 6; j++) {
+					DireccionT += "0";
+				}
+				DireccionT += DirT[i];
+
+				for (int j = (T[i].Length / 2).ToString("X").Length; j < 2; j++) {
+					LongitudT += "0";
+				}
+				LongitudT += (T[i].Length / 2).ToString("X");
+
+				tbRegistros.Text += "T" + DireccionT + LongitudT + T[i] + Environment.NewLine;
+			}
+		}
+
+		private void RegistroE() {
+			string E = "E";
+			//Caso en que exista un operando
+			if (dataGridIntermedio.Rows[dataGridIntermedio.Rows.Count - 1].Cells[3].Value.ToString() != "") {
+				foreach (DataGridViewRow row in dataGridTabSim.Rows) {
+					if (row.Cells[0].Value.ToString() == dataGridIntermedio.Rows[dataGridIntermedio.Rows.Count - 1].Cells[3].Value.ToString()) {
+						for (int i = row.Cells[1].Value.ToString().Length; i < 6; i++) {
+							E += "0";
+						}
+						E += row.Cells[1].Value.ToString();
+						tbRegistros.Text += E;
+						return;
+					}
+				}
+				E += "FFFFFF";
+				tbRegistros.Text += E;
+			}
+			//Caso en que no haya operando
+			else {
+				foreach (DataGridViewRow row in dataGridIntermedio.Rows) {
+					foreach (Instrucciones instr in Enum.GetValues(typeof(Instrucciones))) {
+						if (row.Cells[2].Value.ToString() == instr.ToString()) {
+							for (int i = row.Cells[0].Value.ToString().Length; i < 6; i++) {
+								E += "0";
+							}
+							E += row.Cells[0].Value.ToString();
+							tbRegistros.Text += E;
+							return;
 						}
 					}
 				}
 			}
 		}
 
-		private void SalirToolStripMenuItem_Click(object sender, EventArgs e) => Close();
+		private bool EsLineaValida(string Linea) {
+			string aux = "";
+			string line = Linea.Replace('\t', ' ');
+			string[] partes = line.Split(' ');
+			foreach (string parte in partes)
+				aux += parte;
+			if (aux.Length == 0)
+				return false;
+			else
+				return true;
+		}
 
+		private bool EsEtiquetaValida(string etiqueta) {
+			foreach (Instrucciones instr in Enum.GetValues(typeof(Instrucciones)))
+				if (instr.ToString() == etiqueta)
+					return false;
+			foreach (Directivas direct in Enum.GetValues(typeof(Directivas)))
+				if (direct.ToString() == etiqueta)
+					return false;
+			return true;
+		}
+
+		private void ActivaControles() {
+			tbPrograma.Enabled = true;
+			guardarToolStripMenuItem.Enabled = true;
+			guardarComoToolStripMenuItem.Enabled = true;
+			cerrarToolStripMenuItem.Enabled = true;
+			analizarToolStripMenuItem.Enabled = true;
+			paso1ToolStripMenuItem.Enabled = false;
+			paso2ToolStripMenuItem.Enabled = false;
+		}
+
+		private void DesactivaControles() {
+			tbPrograma.Enabled = false;
+			guardarToolStripMenuItem.Enabled = false;
+			guardarComoToolStripMenuItem.Enabled = false;
+			cerrarToolStripMenuItem.Enabled = false;
+			analizarToolStripMenuItem.Enabled = false;
+			paso1ToolStripMenuItem.Enabled = false;
+			paso2ToolStripMenuItem.Enabled = false;
+		}
 	}
 }

@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectoSIC {
-	public class Programa {
+namespace ProyectoSIC
+{
+	public class Programa
+    {
 		public List<Linea> lineas;
-		public List<string> tabSim;
 
-		public Programa() {
+		public Programa()
+        {
 			lineas = new List<Linea>();
 		}
 	}

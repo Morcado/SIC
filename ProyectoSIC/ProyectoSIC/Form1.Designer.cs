@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.Menu = new System.Windows.Forms.MenuStrip();
 			this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.nuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,7 +54,7 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.ArchivoActivo = new System.Windows.Forms.StatusStrip();
 			this.DireccionArchivo = new System.Windows.Forms.ToolStripStatusLabel();
-			this.dataGridIntermedio = new System.Windows.Forms.DataGridView();
+			this.intermedio = new System.Windows.Forms.DataGridView();
 			this.dgCP = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dgEtiqueta = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dgInstruccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -63,12 +63,14 @@
 			this.textBoxRes = new System.Windows.Forms.TextBox();
 			this.tbRegistros = new System.Windows.Forms.TextBox();
 			this.LongitudPrograma = new System.Windows.Forms.Label();
+			this.btnCargarMemoria = new System.Windows.Forms.Button();
 			this.tbLinea = new SyncTextBox();
 			this.tbPrograma = new SyncTextBox();
+			this.btnAbrirObjeto = new System.Windows.Forms.Button();
 			this.Menu.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridTabSim)).BeginInit();
 			this.ArchivoActivo.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridIntermedio)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.intermedio)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// Menu
@@ -222,8 +224,8 @@
 			this.dataGridTabSim.ReadOnly = true;
 			this.dataGridTabSim.RowHeadersWidth = 20;
 			this.dataGridTabSim.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-			dataGridViewCellStyle1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.dataGridTabSim.RowsDefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle3.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.dataGridTabSim.RowsDefaultCellStyle = dataGridViewCellStyle3;
 			this.dataGridTabSim.Size = new System.Drawing.Size(277, 248);
 			this.dataGridTabSim.TabIndex = 10;
 			// 
@@ -290,29 +292,29 @@
 			this.DireccionArchivo.Name = "DireccionArchivo";
 			this.DireccionArchivo.Size = new System.Drawing.Size(0, 17);
 			// 
-			// dataGridIntermedio
+			// intermedio
 			// 
-			this.dataGridIntermedio.AllowUserToAddRows = false;
-			this.dataGridIntermedio.AllowUserToDeleteRows = false;
-			this.dataGridIntermedio.AllowUserToResizeColumns = false;
-			this.dataGridIntermedio.AllowUserToResizeRows = false;
-			this.dataGridIntermedio.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-			this.dataGridIntermedio.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-			this.dataGridIntermedio.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+			this.intermedio.AllowUserToAddRows = false;
+			this.intermedio.AllowUserToDeleteRows = false;
+			this.intermedio.AllowUserToResizeColumns = false;
+			this.intermedio.AllowUserToResizeRows = false;
+			this.intermedio.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+			this.intermedio.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+			this.intermedio.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dgCP,
             this.dgEtiqueta,
             this.dgInstruccion,
             this.dgOperando,
             this.dgCodObj});
-			this.dataGridIntermedio.Location = new System.Drawing.Point(301, 53);
-			this.dataGridIntermedio.Name = "dataGridIntermedio";
-			this.dataGridIntermedio.ReadOnly = true;
-			this.dataGridIntermedio.RowHeadersWidth = 36;
-			this.dataGridIntermedio.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-			dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 9F);
-			this.dataGridIntermedio.RowsDefaultCellStyle = dataGridViewCellStyle2;
-			this.dataGridIntermedio.Size = new System.Drawing.Size(592, 497);
-			this.dataGridIntermedio.TabIndex = 10;
+			this.intermedio.Location = new System.Drawing.Point(301, 53);
+			this.intermedio.Name = "intermedio";
+			this.intermedio.ReadOnly = true;
+			this.intermedio.RowHeadersWidth = 36;
+			this.intermedio.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+			dataGridViewCellStyle4.Font = new System.Drawing.Font("Consolas", 9F);
+			this.intermedio.RowsDefaultCellStyle = dataGridViewCellStyle4;
+			this.intermedio.Size = new System.Drawing.Size(592, 497);
+			this.intermedio.TabIndex = 10;
 			// 
 			// dgCP
 			// 
@@ -376,7 +378,7 @@
 			this.tbRegistros.Name = "tbRegistros";
 			this.tbRegistros.ReadOnly = true;
 			this.tbRegistros.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.tbRegistros.Size = new System.Drawing.Size(449, 216);
+			this.tbRegistros.Size = new System.Drawing.Size(449, 187);
 			this.tbRegistros.TabIndex = 20;
 			this.tbRegistros.WordWrap = false;
 			// 
@@ -389,6 +391,16 @@
 			this.LongitudPrograma.TabIndex = 21;
 			this.LongitudPrograma.Text = "label2";
 			// 
+			// btnCargarMemoria
+			// 
+			this.btnCargarMemoria.Location = new System.Drawing.Point(1043, 527);
+			this.btnCargarMemoria.Name = "btnCargarMemoria";
+			this.btnCargarMemoria.Size = new System.Drawing.Size(117, 23);
+			this.btnCargarMemoria.TabIndex = 22;
+			this.btnCargarMemoria.Text = "Cargar en memoria";
+			this.btnCargarMemoria.UseVisualStyleBackColor = true;
+			this.btnCargarMemoria.Click += new System.EventHandler(this.btnCargarMemoria_Click);
+			// 
 			// tbLinea
 			// 
 			this.tbLinea.Buddy = this.tbPrograma;
@@ -398,7 +410,7 @@
 			this.tbLinea.Multiline = true;
 			this.tbLinea.Name = "tbLinea";
 			this.tbLinea.ReadOnly = true;
-			this.tbLinea.Size = new System.Drawing.Size(34, 497);
+			this.tbLinea.Size = new System.Drawing.Size(34, 467);
 			this.tbLinea.TabIndex = 9;
 			this.tbLinea.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			// 
@@ -411,9 +423,19 @@
 			this.tbPrograma.Multiline = true;
 			this.tbPrograma.Name = "tbPrograma";
 			this.tbPrograma.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.tbPrograma.Size = new System.Drawing.Size(250, 497);
+			this.tbPrograma.Size = new System.Drawing.Size(250, 467);
 			this.tbPrograma.TabIndex = 8;
 			this.tbPrograma.TextChanged += new System.EventHandler(this.TbPrograma_TextChanged);
+			// 
+			// btnAbrirObjeto
+			// 
+			this.btnAbrirObjeto.Location = new System.Drawing.Point(902, 527);
+			this.btnAbrirObjeto.Name = "btnAbrirObjeto";
+			this.btnAbrirObjeto.Size = new System.Drawing.Size(135, 23);
+			this.btnAbrirObjeto.TabIndex = 23;
+			this.btnAbrirObjeto.Text = "Abrir programa objeto";
+			this.btnAbrirObjeto.UseVisualStyleBackColor = true;
+			this.btnAbrirObjeto.Click += new System.EventHandler(this.btnAbrirObjeto_Click);
 			// 
 			// Principal
 			// 
@@ -421,6 +443,8 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.ClientSize = new System.Drawing.Size(1360, 591);
+			this.Controls.Add(this.btnAbrirObjeto);
+			this.Controls.Add(this.btnCargarMemoria);
 			this.Controls.Add(this.LongitudPrograma);
 			this.Controls.Add(this.tbRegistros);
 			this.Controls.Add(this.textBoxRes);
@@ -428,7 +452,7 @@
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.Letrero4);
 			this.Controls.Add(this.Letrero3);
-			this.Controls.Add(this.dataGridIntermedio);
+			this.Controls.Add(this.intermedio);
 			this.Controls.Add(this.dataGridTabSim);
 			this.Controls.Add(this.tbLinea);
 			this.Controls.Add(this.tbPrograma);
@@ -446,7 +470,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.dataGridTabSim)).EndInit();
 			this.ArchivoActivo.ResumeLayout(false);
 			this.ArchivoActivo.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridIntermedio)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.intermedio)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -475,7 +499,7 @@
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
 		private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
-		private System.Windows.Forms.DataGridView dataGridIntermedio;
+		private System.Windows.Forms.DataGridView intermedio;
 		private System.Windows.Forms.TextBox textBoxRes;
         private System.Windows.Forms.ToolStripMenuItem analizarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem paso1ToolStripMenuItem;
@@ -489,6 +513,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dgInstruccion;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgOperando;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgCodObj;
-    }
+		private System.Windows.Forms.Button btnCargarMemoria;
+		private System.Windows.Forms.Button btnAbrirObjeto;
+	}
 }
 

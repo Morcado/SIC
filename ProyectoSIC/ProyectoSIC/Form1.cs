@@ -22,6 +22,7 @@ namespace ProyectoSIC {
 		private Programa prog;
 		private int LongPrograma;
 
+
 		public Principal() {
 			InitializeComponent();
 			DesactivaControles();
@@ -39,7 +40,7 @@ namespace ProyectoSIC {
 			LongitudPrograma.Text = "";
 			ActivaControles();
 			prog = new Programa();
-			dataGridIntermedio.Rows.Clear();
+			intermedio.Rows.Clear();
 			dataGridTabSim.Rows.Clear();
 			tbErrores.Clear();
 			tbRegistros.Clear();
@@ -64,7 +65,7 @@ namespace ProyectoSIC {
 				DireccionArchivo.Text = open.FileName;
 				ActivaControles();
 				prog = new Programa();
-				dataGridIntermedio.Rows.Clear();
+				intermedio.Rows.Clear();
 				dataGridTabSim.Rows.Clear();
 				tbErrores.Clear();
 				tbRegistros.Clear();
@@ -109,7 +110,7 @@ namespace ProyectoSIC {
 			ActiveForm.Text = "SIC";
 			DireccionArchivo.Text = "";
 			LongitudPrograma.Text = "";
-			dataGridIntermedio.Rows.Clear();
+			intermedio.Rows.Clear();
 			dataGridTabSim.Rows.Clear();
 			tbErrores.Clear();
 			tbRegistros.Clear();
@@ -127,7 +128,7 @@ namespace ProyectoSIC {
 				List<string> results = new List<string>();
 				prog.lineas.Clear();
 				foreach (string line in tbPrograma.Lines) {
-					if (EsLineaValida(line)) {
+					if (line != "") { 
 						Linea linea = new Linea(line);
 						prog.lineas.Add(linea);
 						GramaticaLexer lex = new GramaticaLexer(new AntlrInputStream(line + Environment.NewLine));
@@ -163,7 +164,7 @@ namespace ProyectoSIC {
 				paso1ToolStripMenuItem.Enabled = true;
 				paso2ToolStripMenuItem.Enabled = false;
 				tbRegistros.Clear();
-				dataGridIntermedio.Rows.Clear();
+				intermedio.Rows.Clear();
 				dataGridTabSim.Rows.Clear();
 
 			}
@@ -173,19 +174,21 @@ namespace ProyectoSIC {
 		}
 
 		private void Paso1(object sender, EventArgs e) {
-			dataGridIntermedio.RowHeadersWidth = 60;
+			intermedio.RowHeadersWidth = 60;
 			dataGridTabSim.Rows.Clear();
-			dataGridIntermedio.Rows.Clear();
-			int contador = Convert.ToInt32(prog.lineas[0].Operando);
+			intermedio.Rows.Clear();
+			int contador = prog.lineas[0].Operando.ToDec();
 			string hexCont = "";
 			for (int i = 0; i < prog.lineas.Count; i++) {
 				hexCont = contador.ToString("X");
 				string valor = "";
-				if (prog.lineas[i].Operando != "" && char.IsDigit(prog.lineas[i].Operando[0]))
-					valor = Convert.ToInt32(prog.lineas[i].Operando).ToString("X");
-				else
+				if (prog.lineas[i].Operando != "" && char.IsDigit(prog.lineas[i].Operando[0])) {
 					valor = prog.lineas[i].Operando;
-				dataGridIntermedio.Rows.Add(hexCont, prog.lineas[i].Etiqueta, prog.lineas[i].CodigoOp, valor);
+				}
+				else {
+					valor = prog.lineas[i].Operando;
+				}
+				intermedio.Rows.Add(hexCont, prog.lineas[i].Etiqueta, prog.lineas[i].CodigoOp, valor);
 
 				bool Repetido = false;
 				foreach (DataGridViewRow row in dataGridTabSim.Rows) {
@@ -194,16 +197,20 @@ namespace ProyectoSIC {
 						break;
 					}
 				}
-				if (prog.lineas[i].Etiqueta != "" && i != 0 && !Repetido && EsEtiquetaValida(prog.lineas[i].Etiqueta))
+				if (prog.lineas[i].Etiqueta != "" && i != 0 && !Repetido && EsEtiquetaValida(prog.lineas[i].Etiqueta)) {
 					dataGridTabSim.Rows.Add(prog.lineas[i].Etiqueta, hexCont);
+				}
 
-				dataGridIntermedio.Rows[i].HeaderCell.Value = (i + 1).ToString();
+				intermedio.Rows[i].HeaderCell.Value = (i + 1).ToString();
 				if (!prog.lineas[i].Error) {
 					if (prog.lineas[i].CodigoOp == "RESW")
-						contador += (Convert.ToInt32(prog.lineas[i].Operando) * 3);
+						contador += prog.lineas[i].Operando.ToDec() * 3;
 					else {
 						if (prog.lineas[i].CodigoOp == "RESB")
-							contador += int.Parse(prog.lineas[i].Operando, System.Globalization.NumberStyles.HexNumber);
+							//if (prog.lineas[i].Operando[prog.lineas[i].Operando.Length - 1] == 'H') {
+
+							//}
+							contador += prog.lineas[i].Operando.ToDec();
 						else {
 							if (prog.lineas[i].CodigoOp == "BYTE") {
 								if (prog.lineas[i].Operando.StartsWith("X'") && prog.lineas[i].Operando.EndsWith("'"))
@@ -220,19 +227,21 @@ namespace ProyectoSIC {
 					}
 				}
 			}
-			LongPrograma = int.Parse(hexCont, System.Globalization.NumberStyles.HexNumber) - int.Parse(dataGridIntermedio.Rows[0].Cells[0].Value.ToString(), System.Globalization.NumberStyles.HexNumber);
-			LongitudPrograma.Text = "Tamaño del programa: " + LongPrograma.ToString("X") + "H";
+			LongPrograma = hexCont.ToDec() - intermedio.Value(0, 0).ToDec();
+			LongitudPrograma.Text = "Tamaño del programa: " + LongPrograma.ToHex() + "H";
 			paso2ToolStripMenuItem.Enabled = true;
 		}
 
+
 		private void Paso2(object sender, EventArgs e) {
-			foreach (DataGridViewRow row in dataGridIntermedio.Rows) {
+			foreach (DataGridViewRow row in intermedio.Rows) {
 				if (EsEtiquetaValida(row.Cells[1].Value.ToString())) {
 					if (row.Cells[2].Value.ToString() != "START" && row.Cells[2].Value.ToString() != "END" && row.Cells[2].Value.ToString() != "RESB" && row.Cells[2].Value.ToString() != "RESW") {
 						if (row.Cells[2].Value.ToString().Contains("WORD")) {
 							string word = "";
-							for (int i = row.Cells[3].Value.ToString().Length; i < 6; i++)
+							for (int i = row.Cells[3].Value.ToString().Length; i < 6; i++) {
 								word += "0";
+							}
 							word += row.Cells[3].Value.ToString();
 							row.Cells[4].Value = word;
 						}
@@ -309,7 +318,7 @@ namespace ProyectoSIC {
 				}
 			}
 			RegistroH();
-			RegistrosT();
+			RegistroT();
 			RegistroE();
 			File.WriteAllLines(ruta + @"\" + nombre + ".obj", tbRegistros.Lines);
 		}
@@ -325,36 +334,40 @@ namespace ProyectoSIC {
 
 		private void RegistroH() {
 			string H = "H";
+			string aux;
 			//Llenado con el nombre
-			if (dataGridIntermedio.Rows[0].Cells[1].Value.ToString().Length > 6) {
-				H += dataGridIntermedio.Rows[0].Cells[1].Value.ToString().Substring(0, 6);
+			if (intermedio.Value(0, 1).Length > 6) { 
+				H += intermedio.Value(0, 1).Substring(0, 6);
 			}
 			else {
-				H += dataGridIntermedio.Rows[0].Cells[1].Value.ToString();
-				for (int i = dataGridIntermedio.Rows[0].Cells[1].Value.ToString().Length; i < 6; i++) {
+				H += intermedio.Value(0, 1);
+				for (int i = H.Length - 1; i < 6; i++) {
 					H += " ";
 				}
 			}
 
 			//Llenado con la dirección de inicio
-			for (int i = dataGridIntermedio.Rows[0].Cells[3].Value.ToString().Length; i < 6; i++) {
-				H += "0";
+			aux = intermedio.Value(0, 3);
+			while (aux.Length < 6) {
+				aux = "0" + aux;
 			}
-			H += dataGridIntermedio.Rows[0].Cells[3].Value.ToString();
+			H += aux;
 
 			//Longitud del programa
-			for (int i = LongPrograma.ToString("X").Length; i < 6; i++) {
-				H += "0";
+			aux = LongPrograma.ToHex();
+			while (aux.Length < 6) {
+				aux = "0" + aux;
 			}
-			H += LongPrograma.ToString("X");
+			H += aux;
 			tbRegistros.Text += H + Environment.NewLine;
 		}
 
-		private void RegistrosT() {
+		private void RegistroT() {
 			List<string> T = new List<string>();
 			List<string> DirT = new List<string>();
 			string RegistroT = "";
-			foreach (DataGridViewRow row in dataGridIntermedio.Rows) {
+
+			foreach (DataGridViewRow row in intermedio.Rows) {
 				if (row.Cells[2].Value.ToString() != "START") {
 					if (row.Cells[2].Value.ToString() != "RESW" && row.Cells[2].Value.ToString() != "RESB" && row.Cells[2].Value.ToString() != "END") {
 						if (!row.Cells[4].Value.ToString().StartsWith("Error")) {
@@ -406,9 +419,9 @@ namespace ProyectoSIC {
 		private void RegistroE() {
 			string E = "E";
 			//Caso en que exista un operando
-			if (dataGridIntermedio.Rows[dataGridIntermedio.Rows.Count - 1].Cells[3].Value.ToString() != "") {
+			if (intermedio.Rows[intermedio.Rows.Count - 1].Cells[3].Value.ToString() != "") {
 				foreach (DataGridViewRow row in dataGridTabSim.Rows) {
-					if (row.Cells[0].Value.ToString() == dataGridIntermedio.Rows[dataGridIntermedio.Rows.Count - 1].Cells[3].Value.ToString()) {
+					if (row.Cells[0].Value.ToString() == intermedio.Rows[intermedio.Rows.Count - 1].Cells[3].Value.ToString()) {
 						for (int i = row.Cells[1].Value.ToString().Length; i < 6; i++) {
 							E += "0";
 						}
@@ -422,7 +435,7 @@ namespace ProyectoSIC {
 			}
 			//Caso en que no haya operando
 			else {
-				foreach (DataGridViewRow row in dataGridIntermedio.Rows) {
+				foreach (DataGridViewRow row in intermedio.Rows) {
 					foreach (Instrucciones instr in Enum.GetValues(typeof(Instrucciones))) {
 						if (row.Cells[2].Value.ToString() == instr.ToString()) {
 							for (int i = row.Cells[0].Value.ToString().Length; i < 6; i++) {
@@ -437,26 +450,12 @@ namespace ProyectoSIC {
 			}
 		}
 
-		private bool EsLineaValida(string Linea) {
-			string aux = "";
-			string line = Linea.Replace('\t', ' ');
-			string[] partes = line.Split(' ');
-			foreach (string parte in partes)
-				aux += parte;
-			if (aux.Length == 0)
-				return false;
-			else
-				return true;
-		}
 
 		private bool EsEtiquetaValida(string etiqueta) {
-			foreach (Instrucciones instr in Enum.GetValues(typeof(Instrucciones)))
-				if (instr.ToString() == etiqueta)
-					return false;
-			foreach (Directivas direct in Enum.GetValues(typeof(Directivas)))
-				if (direct.ToString() == etiqueta)
-					return false;
-			return true;
+			bool valido = true;
+			valido = !Enum.IsDefined(typeof(Instrucciones), etiqueta);
+			valido = !Enum.IsDefined(typeof(Directivas), etiqueta);
+			return valido;
 		}
 
 		private void ActivaControles() {
@@ -467,6 +466,22 @@ namespace ProyectoSIC {
 			analizarToolStripMenuItem.Enabled = true;
 			paso1ToolStripMenuItem.Enabled = false;
 			paso2ToolStripMenuItem.Enabled = false;
+		}
+
+		private void btnCargarMemoria_Click(object sender, EventArgs e) {
+			MapaMemoria mm = new MapaMemoria(tbRegistros.Lines);
+			mm.Show();
+		}
+
+		private void btnAbrirObjeto_Click(object sender, EventArgs e) {
+			OpenFileDialog op = new OpenFileDialog {
+				InitialDirectory = Application.StartupPath + "\\example",
+				Filter = "OBJ File (*.obj)|*.obj|All files (*.*)|*.*",
+				DefaultExt = ".obj"
+			};
+			if (op.ShowDialog() == DialogResult.OK) {
+				tbRegistros.Lines = File.ReadAllLines(op.FileName);
+			}
 		}
 
 		private void DesactivaControles() {

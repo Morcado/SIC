@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using Antlr4.Runtime;
 using System.IO;
 using System.Drawing;
+using System.Linq;
 
 namespace ProyectoSIC {
 	public enum Instrucciones {
@@ -391,13 +392,17 @@ namespace ProyectoSIC {
 					else {
 						if (row.Cells[2].Value.ToString() == "END") {
 							if (RegistroT != "") {
-								T.Add(RegistroT);
 								RegistroT = "";
 							}
 						}
+						T.Add(RegistroT);
+						RegistroT = "";
 					}
 				}
 			}
+
+			T = T.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
+
 			for (int i = 0; i < T.Count; i++) {
 				string DireccionT = "";
 				string LongitudT = "";

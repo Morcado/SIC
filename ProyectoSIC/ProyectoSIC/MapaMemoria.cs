@@ -40,8 +40,6 @@ namespace ProyectoSIC {
 				int cont = objText[i].Substring(7, 2).ToDec();
 				string resto = objText[i].Substring(9);
 
-				  
-
 				for (int j = 0; j < cont * 2; j += 2) {
 					memoria.SetValue(pos[0], pos[1], resto[j].ToString() + resto[j + 1].ToString());
 					

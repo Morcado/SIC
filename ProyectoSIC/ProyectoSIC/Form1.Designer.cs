@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.Menu = new System.Windows.Forms.MenuStrip();
 			this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.nuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,9 +40,6 @@
 			this.cerrarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.analizarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.paso1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.paso2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.tbErrores = new System.Windows.Forms.TextBox();
 			this.Letrero1 = new System.Windows.Forms.Label();
 			this.Letrero2 = new System.Windows.Forms.Label();
@@ -64,9 +61,19 @@
 			this.tbRegistros = new System.Windows.Forms.TextBox();
 			this.LongitudPrograma = new System.Windows.Forms.Label();
 			this.btnCargarMemoria = new System.Windows.Forms.Button();
+			this.btnAbrirObjeto = new System.Windows.Forms.Button();
+			this.analisisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.analizarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.paso1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.paso2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.ejecuciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.cargarProgramaObjetoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.cargarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.tbLinea = new SyncTextBox();
 			this.tbPrograma = new SyncTextBox();
-			this.btnAbrirObjeto = new System.Windows.Forms.Button();
+			this.btnAnalizar = new System.Windows.Forms.Button();
+			this.btnPaso1 = new System.Windows.Forms.Button();
+			this.btnPaso2 = new System.Windows.Forms.Button();
 			this.Menu.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridTabSim)).BeginInit();
 			this.ArchivoActivo.SuspendLayout();
@@ -77,9 +84,8 @@
 			// 
 			this.Menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.archivoToolStripMenuItem,
-            this.analizarToolStripMenuItem,
-            this.paso1ToolStripMenuItem,
-            this.paso2ToolStripMenuItem});
+            this.analisisToolStripMenuItem,
+            this.ejecuciónToolStripMenuItem});
 			this.Menu.Location = new System.Drawing.Point(0, 0);
 			this.Menu.Name = "Menu";
 			this.Menu.Size = new System.Drawing.Size(1360, 24);
@@ -156,27 +162,6 @@
 			this.salirToolStripMenuItem.Text = "Salir";
 			this.salirToolStripMenuItem.Click += new System.EventHandler(this.SalirToolStripMenuItem_Click);
 			// 
-			// analizarToolStripMenuItem
-			// 
-			this.analizarToolStripMenuItem.Name = "analizarToolStripMenuItem";
-			this.analizarToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
-			this.analizarToolStripMenuItem.Text = "Analizar";
-			this.analizarToolStripMenuItem.Click += new System.EventHandler(this.Analizar);
-			// 
-			// paso1ToolStripMenuItem
-			// 
-			this.paso1ToolStripMenuItem.Name = "paso1ToolStripMenuItem";
-			this.paso1ToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
-			this.paso1ToolStripMenuItem.Text = "Paso 1";
-			this.paso1ToolStripMenuItem.Click += new System.EventHandler(this.Paso1);
-			// 
-			// paso2ToolStripMenuItem
-			// 
-			this.paso2ToolStripMenuItem.Name = "paso2ToolStripMenuItem";
-			this.paso2ToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
-			this.paso2ToolStripMenuItem.Text = "Paso 2";
-			this.paso2ToolStripMenuItem.Click += new System.EventHandler(this.Paso2);
-			// 
 			// tbErrores
 			// 
 			this.tbErrores.Enabled = false;
@@ -224,8 +209,8 @@
 			this.dataGridTabSim.ReadOnly = true;
 			this.dataGridTabSim.RowHeadersWidth = 20;
 			this.dataGridTabSim.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-			dataGridViewCellStyle3.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.dataGridTabSim.RowsDefaultCellStyle = dataGridViewCellStyle3;
+			dataGridViewCellStyle5.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.dataGridTabSim.RowsDefaultCellStyle = dataGridViewCellStyle5;
 			this.dataGridTabSim.Size = new System.Drawing.Size(277, 248);
 			this.dataGridTabSim.TabIndex = 10;
 			// 
@@ -311,9 +296,9 @@
 			this.intermedio.ReadOnly = true;
 			this.intermedio.RowHeadersWidth = 36;
 			this.intermedio.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-			dataGridViewCellStyle4.Font = new System.Drawing.Font("Consolas", 9F);
-			this.intermedio.RowsDefaultCellStyle = dataGridViewCellStyle4;
-			this.intermedio.Size = new System.Drawing.Size(592, 497);
+			dataGridViewCellStyle6.Font = new System.Drawing.Font("Consolas", 9F);
+			this.intermedio.RowsDefaultCellStyle = dataGridViewCellStyle6;
+			this.intermedio.Size = new System.Drawing.Size(592, 467);
 			this.intermedio.TabIndex = 10;
 			// 
 			// dgCP
@@ -381,6 +366,7 @@
 			this.tbRegistros.Size = new System.Drawing.Size(449, 187);
 			this.tbRegistros.TabIndex = 20;
 			this.tbRegistros.WordWrap = false;
+			this.tbRegistros.TextChanged += new System.EventHandler(this.tbRegistros_TextChanged);
 			// 
 			// LongitudPrograma
 			// 
@@ -393,13 +379,77 @@
 			// 
 			// btnCargarMemoria
 			// 
-			this.btnCargarMemoria.Location = new System.Drawing.Point(1043, 527);
+			this.btnCargarMemoria.Location = new System.Drawing.Point(899, 526);
 			this.btnCargarMemoria.Name = "btnCargarMemoria";
 			this.btnCargarMemoria.Size = new System.Drawing.Size(117, 23);
 			this.btnCargarMemoria.TabIndex = 22;
 			this.btnCargarMemoria.Text = "Cargar en memoria";
 			this.btnCargarMemoria.UseVisualStyleBackColor = true;
 			this.btnCargarMemoria.Click += new System.EventHandler(this.btnCargarMemoria_Click);
+			// 
+			// btnAbrirObjeto
+			// 
+			this.btnAbrirObjeto.Location = new System.Drawing.Point(1213, 526);
+			this.btnAbrirObjeto.Name = "btnAbrirObjeto";
+			this.btnAbrirObjeto.Size = new System.Drawing.Size(135, 23);
+			this.btnAbrirObjeto.TabIndex = 23;
+			this.btnAbrirObjeto.Text = "Abrir programa objeto";
+			this.btnAbrirObjeto.UseVisualStyleBackColor = true;
+			this.btnAbrirObjeto.Click += new System.EventHandler(this.btnAbrirObjeto_Click);
+			// 
+			// analisisToolStripMenuItem
+			// 
+			this.analisisToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.analizarToolStripMenuItem,
+            this.paso1ToolStripMenuItem,
+            this.paso2ToolStripMenuItem});
+			this.analisisToolStripMenuItem.Name = "analisisToolStripMenuItem";
+			this.analisisToolStripMenuItem.Size = new System.Drawing.Size(88, 20);
+			this.analisisToolStripMenuItem.Text = "Ensamblador";
+			// 
+			// analizarToolStripMenuItem
+			// 
+			this.analizarToolStripMenuItem.Name = "analizarToolStripMenuItem";
+			this.analizarToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+			this.analizarToolStripMenuItem.Text = "Analizar código";
+			this.analizarToolStripMenuItem.Click += new System.EventHandler(this.Analizar);
+			// 
+			// paso1ToolStripMenuItem
+			// 
+			this.paso1ToolStripMenuItem.Name = "paso1ToolStripMenuItem";
+			this.paso1ToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+			this.paso1ToolStripMenuItem.Text = "Paso 1 Archivo Intermedio";
+			this.paso1ToolStripMenuItem.Click += new System.EventHandler(this.Paso1);
+			// 
+			// paso2ToolStripMenuItem
+			// 
+			this.paso2ToolStripMenuItem.Name = "paso2ToolStripMenuItem";
+			this.paso2ToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+			this.paso2ToolStripMenuItem.Text = "Paso 2 Código objeto";
+			this.paso2ToolStripMenuItem.Click += new System.EventHandler(this.Paso2);
+			// 
+			// ejecuciónToolStripMenuItem
+			// 
+			this.ejecuciónToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cargarProgramaObjetoToolStripMenuItem,
+            this.cargarToolStripMenuItem});
+			this.ejecuciónToolStripMenuItem.Name = "ejecuciónToolStripMenuItem";
+			this.ejecuciónToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
+			this.ejecuciónToolStripMenuItem.Text = "Ejecución";
+			// 
+			// cargarProgramaObjetoToolStripMenuItem
+			// 
+			this.cargarProgramaObjetoToolStripMenuItem.Name = "cargarProgramaObjetoToolStripMenuItem";
+			this.cargarProgramaObjetoToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+			this.cargarProgramaObjetoToolStripMenuItem.Text = "Abrir programa objeto";
+			this.cargarProgramaObjetoToolStripMenuItem.Click += new System.EventHandler(this.btnAbrirObjeto_Click);
+			// 
+			// cargarToolStripMenuItem
+			// 
+			this.cargarToolStripMenuItem.Name = "cargarToolStripMenuItem";
+			this.cargarToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+			this.cargarToolStripMenuItem.Text = "Cargar en la memoria";
+			this.cargarToolStripMenuItem.Click += new System.EventHandler(this.btnCargarMemoria_Click);
 			// 
 			// tbLinea
 			// 
@@ -427,15 +477,35 @@
 			this.tbPrograma.TabIndex = 8;
 			this.tbPrograma.TextChanged += new System.EventHandler(this.TbPrograma_TextChanged);
 			// 
-			// btnAbrirObjeto
+			// btnAnalizar
 			// 
-			this.btnAbrirObjeto.Location = new System.Drawing.Point(902, 527);
-			this.btnAbrirObjeto.Name = "btnAbrirObjeto";
-			this.btnAbrirObjeto.Size = new System.Drawing.Size(135, 23);
-			this.btnAbrirObjeto.TabIndex = 23;
-			this.btnAbrirObjeto.Text = "Abrir programa objeto";
-			this.btnAbrirObjeto.UseVisualStyleBackColor = true;
-			this.btnAbrirObjeto.Click += new System.EventHandler(this.btnAbrirObjeto_Click);
+			this.btnAnalizar.Location = new System.Drawing.Point(12, 527);
+			this.btnAnalizar.Name = "btnAnalizar";
+			this.btnAnalizar.Size = new System.Drawing.Size(127, 23);
+			this.btnAnalizar.TabIndex = 24;
+			this.btnAnalizar.Text = "Analizar código";
+			this.btnAnalizar.UseVisualStyleBackColor = true;
+			this.btnAnalizar.Click += new System.EventHandler(this.Analizar);
+			// 
+			// btnPaso1
+			// 
+			this.btnPaso1.Location = new System.Drawing.Point(301, 527);
+			this.btnPaso1.Name = "btnPaso1";
+			this.btnPaso1.Size = new System.Drawing.Size(177, 23);
+			this.btnPaso1.TabIndex = 25;
+			this.btnPaso1.Text = "Paso 1: Archivo intermedio";
+			this.btnPaso1.UseVisualStyleBackColor = true;
+			this.btnPaso1.Click += new System.EventHandler(this.Paso1);
+			// 
+			// btnPaso2
+			// 
+			this.btnPaso2.Location = new System.Drawing.Point(484, 527);
+			this.btnPaso2.Name = "btnPaso2";
+			this.btnPaso2.Size = new System.Drawing.Size(177, 23);
+			this.btnPaso2.TabIndex = 25;
+			this.btnPaso2.Text = "Paso 2: Código objeto";
+			this.btnPaso2.UseVisualStyleBackColor = true;
+			this.btnPaso2.Click += new System.EventHandler(this.Paso2);
 			// 
 			// Principal
 			// 
@@ -443,6 +513,9 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.ClientSize = new System.Drawing.Size(1360, 591);
+			this.Controls.Add(this.btnPaso2);
+			this.Controls.Add(this.btnPaso1);
+			this.Controls.Add(this.btnAnalizar);
 			this.Controls.Add(this.btnAbrirObjeto);
 			this.Controls.Add(this.btnCargarMemoria);
 			this.Controls.Add(this.LongitudPrograma);
@@ -501,12 +574,9 @@
 		private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
 		private System.Windows.Forms.DataGridView intermedio;
 		private System.Windows.Forms.TextBox textBoxRes;
-        private System.Windows.Forms.ToolStripMenuItem analizarToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem paso1ToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgSimbolo;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgDireccion;
         private System.Windows.Forms.TextBox tbRegistros;
-        private System.Windows.Forms.ToolStripMenuItem paso2ToolStripMenuItem;
         private System.Windows.Forms.Label LongitudPrograma;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgCP;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgEtiqueta;
@@ -515,6 +585,16 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dgCodObj;
 		private System.Windows.Forms.Button btnCargarMemoria;
 		private System.Windows.Forms.Button btnAbrirObjeto;
+		private System.Windows.Forms.ToolStripMenuItem analisisToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem analizarToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem paso1ToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem paso2ToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem ejecuciónToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem cargarProgramaObjetoToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem cargarToolStripMenuItem;
+		private System.Windows.Forms.Button btnAnalizar;
+		private System.Windows.Forms.Button btnPaso1;
+		private System.Windows.Forms.Button btnPaso2;
 	}
 }
 

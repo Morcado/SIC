@@ -164,6 +164,8 @@ namespace ProyectoSIC {
 				}
 				paso1ToolStripMenuItem.Enabled = true;
 				paso2ToolStripMenuItem.Enabled = false;
+				btnPaso1.Enabled = true;
+				btnPaso2.Enabled = false;
 				tbRegistros.Clear();
 				intermedio.Rows.Clear();
 				dataGridTabSim.Rows.Clear();
@@ -231,6 +233,7 @@ namespace ProyectoSIC {
 			LongPrograma = hexCont.ToDec() - intermedio.Value(0, 0).ToDec();
 			LongitudPrograma.Text = "Tamaño del programa: " + LongPrograma.ToHex() + "H";
 			paso2ToolStripMenuItem.Enabled = true;
+			btnPaso2.Enabled = true;
 		}
 
 
@@ -471,6 +474,10 @@ namespace ProyectoSIC {
 			analizarToolStripMenuItem.Enabled = true;
 			paso1ToolStripMenuItem.Enabled = false;
 			paso2ToolStripMenuItem.Enabled = false;
+
+			btnAnalizar.Enabled = true;
+			btnPaso1.Enabled = false;
+			btnPaso2.Enabled = false;
 		}
 
 		private void btnCargarMemoria_Click(object sender, EventArgs e) {
@@ -489,14 +496,33 @@ namespace ProyectoSIC {
 			}
 		}
 
+		private void tbRegistros_TextChanged(object sender, EventArgs e) {
+			if (tbRegistros.Text == "") {
+				btnCargarMemoria.Enabled = false;
+				cargarToolStripMenuItem.Enabled = false;
+			}
+			else {
+				btnCargarMemoria.Enabled = true; ;
+				cargarToolStripMenuItem.Enabled = true;
+			}
+		}
+
 		private void DesactivaControles() {
 			tbPrograma.Enabled = false;
+			btnCargarMemoria.Enabled = false;
+			cargarToolStripMenuItem.Enabled = false;
+
 			guardarToolStripMenuItem.Enabled = false;
 			guardarComoToolStripMenuItem.Enabled = false;
 			cerrarToolStripMenuItem.Enabled = false;
+
 			analizarToolStripMenuItem.Enabled = false;
 			paso1ToolStripMenuItem.Enabled = false;
 			paso2ToolStripMenuItem.Enabled = false;
+
+			btnAnalizar.Enabled = false;
+			btnPaso1.Enabled = false;
+			btnPaso2.Enabled = false;
 		}
 	}
 }

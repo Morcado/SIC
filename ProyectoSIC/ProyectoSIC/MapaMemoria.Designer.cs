@@ -28,14 +28,15 @@
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.memoria = new System.Windows.Forms.DataGridView();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.label1 = new System.Windows.Forms.Label();
-			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.label2 = new System.Windows.Forms.Label();
-			this.textBox2 = new System.Windows.Forms.TextBox();
-			this.label3 = new System.Windows.Forms.Label();
-			this.textBox3 = new System.Windows.Forms.TextBox();
-			this.label4 = new System.Windows.Forms.Label();
 			this.textBox4 = new System.Windows.Forms.TextBox();
+			this.label4 = new System.Windows.Forms.Label();
+			this.textBox3 = new System.Windows.Forms.TextBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.textBox2 = new System.Windows.Forms.TextBox();
+			this.label2 = new System.Windows.Forms.Label();
+			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.label5 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.memoria)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
@@ -65,7 +66,7 @@
 			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
 			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
 			this.memoria.DefaultCellStyle = dataGridViewCellStyle2;
-			this.memoria.Location = new System.Drawing.Point(12, 12);
+			this.memoria.Location = new System.Drawing.Point(12, 28);
 			this.memoria.Name = "memoria";
 			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
 			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
@@ -75,7 +76,7 @@
 			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
 			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
 			this.memoria.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-			this.memoria.Size = new System.Drawing.Size(583, 416);
+			this.memoria.Size = new System.Drawing.Size(583, 400);
 			this.memoria.TabIndex = 0;
 			// 
 			// groupBox1
@@ -88,63 +89,20 @@
 			this.groupBox1.Controls.Add(this.label2);
 			this.groupBox1.Controls.Add(this.textBox1);
 			this.groupBox1.Controls.Add(this.label1);
-			this.groupBox1.Location = new System.Drawing.Point(613, 12);
+			this.groupBox1.Location = new System.Drawing.Point(601, 28);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(185, 199);
+			this.groupBox1.Size = new System.Drawing.Size(185, 159);
 			this.groupBox1.TabIndex = 1;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Registros";
 			// 
-			// label1
+			// textBox4
 			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(25, 32);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(21, 13);
-			this.label1.TabIndex = 0;
-			this.label1.Text = "CP";
-			// 
-			// textBox1
-			// 
-			this.textBox1.Font = new System.Drawing.Font("Consolas", 9F);
-			this.textBox1.Location = new System.Drawing.Point(52, 29);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(100, 22);
-			this.textBox1.TabIndex = 1;
-			// 
-			// label2
-			// 
-			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(32, 58);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(14, 13);
-			this.label2.TabIndex = 0;
-			this.label2.Text = "A";
-			// 
-			// textBox2
-			// 
-			this.textBox2.Font = new System.Drawing.Font("Consolas", 9F);
-			this.textBox2.Location = new System.Drawing.Point(52, 55);
-			this.textBox2.Name = "textBox2";
-			this.textBox2.Size = new System.Drawing.Size(100, 22);
-			this.textBox2.TabIndex = 1;
-			// 
-			// label3
-			// 
-			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(32, 84);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(14, 13);
-			this.label3.TabIndex = 0;
-			this.label3.Text = "X";
-			// 
-			// textBox3
-			// 
-			this.textBox3.Font = new System.Drawing.Font("Consolas", 9F);
-			this.textBox3.Location = new System.Drawing.Point(52, 81);
-			this.textBox3.Name = "textBox3";
-			this.textBox3.Size = new System.Drawing.Size(100, 22);
-			this.textBox3.TabIndex = 1;
+			this.textBox4.Font = new System.Drawing.Font("Consolas", 9F);
+			this.textBox4.Location = new System.Drawing.Point(52, 107);
+			this.textBox4.Name = "textBox4";
+			this.textBox4.Size = new System.Drawing.Size(100, 22);
+			this.textBox4.TabIndex = 1;
 			// 
 			// label4
 			// 
@@ -155,19 +113,72 @@
 			this.label4.TabIndex = 0;
 			this.label4.Text = "L";
 			// 
-			// textBox4
+			// textBox3
 			// 
-			this.textBox4.Font = new System.Drawing.Font("Consolas", 9F);
-			this.textBox4.Location = new System.Drawing.Point(52, 107);
-			this.textBox4.Name = "textBox4";
-			this.textBox4.Size = new System.Drawing.Size(100, 22);
-			this.textBox4.TabIndex = 1;
+			this.textBox3.Font = new System.Drawing.Font("Consolas", 9F);
+			this.textBox3.Location = new System.Drawing.Point(52, 81);
+			this.textBox3.Name = "textBox3";
+			this.textBox3.Size = new System.Drawing.Size(100, 22);
+			this.textBox3.TabIndex = 1;
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(32, 84);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(14, 13);
+			this.label3.TabIndex = 0;
+			this.label3.Text = "X";
+			// 
+			// textBox2
+			// 
+			this.textBox2.Font = new System.Drawing.Font("Consolas", 9F);
+			this.textBox2.Location = new System.Drawing.Point(52, 55);
+			this.textBox2.Name = "textBox2";
+			this.textBox2.Size = new System.Drawing.Size(100, 22);
+			this.textBox2.TabIndex = 1;
+			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(32, 58);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(14, 13);
+			this.label2.TabIndex = 0;
+			this.label2.Text = "A";
+			// 
+			// textBox1
+			// 
+			this.textBox1.Font = new System.Drawing.Font("Consolas", 9F);
+			this.textBox1.Location = new System.Drawing.Point(52, 29);
+			this.textBox1.Name = "textBox1";
+			this.textBox1.Size = new System.Drawing.Size(100, 22);
+			this.textBox1.TabIndex = 1;
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(25, 32);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(21, 13);
+			this.label1.TabIndex = 0;
+			this.label1.Text = "CP";
+			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.Location = new System.Drawing.Point(12, 12);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(47, 13);
+			this.label5.TabIndex = 2;
+			this.label5.Text = "Memoria";
 			// 
 			// MapaMemoria
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(819, 440);
+			this.ClientSize = new System.Drawing.Size(795, 440);
+			this.Controls.Add(this.label5);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.memoria);
 			this.Name = "MapaMemoria";
@@ -176,6 +187,7 @@
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
@@ -191,5 +203,6 @@
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.TextBox textBox1;
 		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label label5;
 	}
 }

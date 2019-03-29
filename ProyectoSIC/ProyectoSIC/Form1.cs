@@ -481,7 +481,7 @@ namespace ProyectoSIC {
 		}
 
 		private void btnCargarMemoria_Click(object sender, EventArgs e) {
-			MapaMemoria mm = new MapaMemoria(tbRegistros.Lines);
+			MapaMemoria mm = new MapaMemoria(tbRegistros.Lines, LongPrograma);
 			mm.Show();
 		}
 

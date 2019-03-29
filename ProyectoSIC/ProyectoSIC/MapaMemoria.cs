@@ -11,9 +11,12 @@ using System.Windows.Forms;
 namespace ProyectoSIC {
 	public partial class MapaMemoria : Form {
 
-		public MapaMemoria(string[] objText) {
+		public MapaMemoria(string[] objText, int longPrograma) {
 			InitializeComponent();
 			memoria.RowHeadersWidth = 80;
+			label7.Text = objText[0].Substring(13, 6);
+			
+
 			string dir = "";
 
 			for (int i = 0; i < 16; i++) {
@@ -30,7 +33,7 @@ namespace ProyectoSIC {
 
 		
 			for (int i = 0; i < objText[0].Substring(13, 6).ToDec() / 16 + 1; i++) {
-				memoria.Rows.Add();
+				memoria.Rows.Add("FF", "FF", "FF", "FF", "FF", "FF", "FF", "FF", "FF", "FF", "FF", "FF", "FF", "FF", "FF", "FF");
 				memoria.Rows[i].HeaderCell.Value = "00" + dir;
 				dir = (dir.ToDec() + 16).ToHex(); // ("100".ToDec() + dir.ToDec()).TotHex();
 			}
@@ -57,7 +60,7 @@ namespace ProyectoSIC {
 
 		public int[] FindRow(string address) {
 			int[] pos = { -1, -1 };
-			for (int i = 0; i < memoria.Rows.Count - 1; i++) {
+			for (int i = 0; i < memoria.Rows.Count; i++) {
 				if (memoria.Rows[i].HeaderCell.Value.ToString().Substring(0, 5) == address.Substring(0, 5)) {
 					for (int j = 0; j < 16; j++) {
 						if (memoria.Rows[i].HeaderCell.Value.ToString().Remove(5) + j.ToHex() == address) {
@@ -70,7 +73,5 @@ namespace ProyectoSIC {
 			}
 			return pos;
 		}
-
-
 	}
 }

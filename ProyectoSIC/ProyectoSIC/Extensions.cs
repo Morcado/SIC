@@ -20,7 +20,10 @@ namespace ProyectoSIC {
 		}
 
 		public static void SetValue(this DataGridView data, int i, int j, object dat) {
+			if (i != -1 && j != -1) {
 			data.Rows[i].Cells[j].Value = dat;
+
+			}
 		}
 	}
 }

@@ -37,6 +37,8 @@
 			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label5 = new System.Windows.Forms.Label();
+			this.label6 = new System.Windows.Forms.Label();
+			this.label7 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.memoria)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
@@ -57,7 +59,7 @@
 			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
 			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
 			this.memoria.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-			this.memoria.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.memoria.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
 			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
 			dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
 			dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 9F);
@@ -76,6 +78,7 @@
 			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
 			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
 			this.memoria.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+			this.memoria.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
 			this.memoria.Size = new System.Drawing.Size(583, 400);
 			this.memoria.TabIndex = 0;
 			// 
@@ -103,6 +106,7 @@
 			this.textBox4.Name = "textBox4";
 			this.textBox4.Size = new System.Drawing.Size(100, 22);
 			this.textBox4.TabIndex = 1;
+			this.textBox4.Text = "FFFFFF";
 			// 
 			// label4
 			// 
@@ -120,6 +124,7 @@
 			this.textBox3.Name = "textBox3";
 			this.textBox3.Size = new System.Drawing.Size(100, 22);
 			this.textBox3.TabIndex = 1;
+			this.textBox3.Text = "FFFFFF";
 			// 
 			// label3
 			// 
@@ -137,6 +142,7 @@
 			this.textBox2.Name = "textBox2";
 			this.textBox2.Size = new System.Drawing.Size(100, 22);
 			this.textBox2.TabIndex = 1;
+			this.textBox2.Text = "FFFFFF";
 			// 
 			// label2
 			// 
@@ -154,6 +160,7 @@
 			this.textBox1.Name = "textBox1";
 			this.textBox1.Size = new System.Drawing.Size(100, 22);
 			this.textBox1.TabIndex = 1;
+			this.textBox1.Text = "FFFFFF";
 			// 
 			// label1
 			// 
@@ -173,11 +180,31 @@
 			this.label5.TabIndex = 2;
 			this.label5.Text = "Memoria";
 			// 
+			// label6
+			// 
+			this.label6.AutoSize = true;
+			this.label6.Location = new System.Drawing.Point(415, 12);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(113, 13);
+			this.label6.TabIndex = 3;
+			this.label6.Text = "Tamaño del programa:";
+			// 
+			// label7
+			// 
+			this.label7.AutoSize = true;
+			this.label7.Location = new System.Drawing.Point(531, 12);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(35, 13);
+			this.label7.TabIndex = 4;
+			this.label7.Text = "label7";
+			// 
 			// MapaMemoria
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(795, 440);
+			this.Controls.Add(this.label7);
+			this.Controls.Add(this.label6);
 			this.Controls.Add(this.label5);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.memoria);
@@ -204,5 +231,7 @@
 		private System.Windows.Forms.TextBox textBox1;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.Label label6;
+		private System.Windows.Forms.Label label7;
 	}
 }

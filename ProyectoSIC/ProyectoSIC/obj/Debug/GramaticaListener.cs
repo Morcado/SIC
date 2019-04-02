@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from C:\Users\Morcado\Desktop\SIC\ProyectoSIC\ProyectoSIC\Gramatica.g4 by ANTLR 4.6.6
+// Generated from C:\Users\Becarios\Documents\SIC\ProyectoSIC\ProyectoSIC\Gramatica.g4 by ANTLR 4.6.6
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -41,6 +41,7 @@ public interface IGramaticaListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitProg([NotNull] GramaticaParser.ProgContext context);
+
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="GramaticaParser.start"/>.
 	/// </summary>
@@ -51,6 +52,7 @@ public interface IGramaticaListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitStart([NotNull] GramaticaParser.StartContext context);
+
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="GramaticaParser.end"/>.
 	/// </summary>
@@ -61,6 +63,7 @@ public interface IGramaticaListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitEnd([NotNull] GramaticaParser.EndContext context);
+
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="GramaticaParser.input"/>.
 	/// </summary>
@@ -71,6 +74,7 @@ public interface IGramaticaListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitInput([NotNull] GramaticaParser.InputContext context);
+
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="GramaticaParser.propositions"/>.
 	/// </summary>
@@ -81,6 +85,7 @@ public interface IGramaticaListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitPropositions([NotNull] GramaticaParser.PropositionsContext context);
+
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="GramaticaParser.proposition"/>.
 	/// </summary>
@@ -91,6 +96,7 @@ public interface IGramaticaListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitProposition([NotNull] GramaticaParser.PropositionContext context);
+
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="GramaticaParser.instruction"/>.
 	/// </summary>
@@ -101,6 +107,7 @@ public interface IGramaticaListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitInstruction([NotNull] GramaticaParser.InstructionContext context);
+
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="GramaticaParser.directive"/>.
 	/// </summary>
@@ -111,6 +118,7 @@ public interface IGramaticaListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitDirective([NotNull] GramaticaParser.DirectiveContext context);
+
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="GramaticaParser.label"/>.
 	/// </summary>
@@ -121,6 +129,7 @@ public interface IGramaticaListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitLabel([NotNull] GramaticaParser.LabelContext context);
+
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="GramaticaParser.instr_args"/>.
 	/// </summary>
@@ -131,6 +140,7 @@ public interface IGramaticaListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitInstr_args([NotNull] GramaticaParser.Instr_argsContext context);
+
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="GramaticaParser.directive_args"/>.
 	/// </summary>
@@ -141,6 +151,7 @@ public interface IGramaticaListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitDirective_args([NotNull] GramaticaParser.Directive_argsContext context);
+
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="GramaticaParser.compileUnit"/>.
 	/// </summary>

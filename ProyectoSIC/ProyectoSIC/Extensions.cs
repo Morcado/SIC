@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,10 +20,10 @@ namespace ProyectoSIC {
 			return data.Rows[i].Cells[j].Value.ToString();
 		}
 
-		public static void SetValue(this DataGridView data, int i, int j, object dat) {
-			if (i != -1 && j != -1) {
-			data.Rows[i].Cells[j].Value = dat;
 
+		public static void SetColor(this DataGridView data, int i, int j, Color color) {
+			if (i != -1 && j != -1) {
+				data.Rows[i].Cells[j].Style.BackColor = color;
 			}
 		}
 	}

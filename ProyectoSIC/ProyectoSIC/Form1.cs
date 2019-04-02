@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 
 namespace ProyectoSIC {
+	/* Conjunto de instrucciones en formato decimal*/
 	public enum Instrucciones {
 		ADD = 24, AND = 64, COMP = 40, DIV = 36, J = 60, JEQ = 48, JGT = 52,
 		JLT = 56, JSUB = 72, LDA = 00, LDCH = 80, LDL = 08, LDX = 04,
@@ -26,9 +27,28 @@ namespace ProyectoSIC {
 
 		public Principal() {
 			InitializeComponent();
-			DesactivaControles();
 			tbPrograma.Select();
 			LongitudPrograma.Text = "";
+		}
+
+		private void EstablecerBotonesArchivo(bool nuevo, bool abrir, bool guardar, bool guardarComo, bool cerrar, bool salir) {
+			nuevoToolStripMenuItem.Enabled = nuevo;
+			abrirProgramaObjetoToolStripMenuItem.Enabled = abrir;
+			guardarToolStripMenuItem.Enabled = guardar;
+			guardarComoToolStripMenuItem.Enabled = guardarComo;
+			cerrarToolStripMenuItem.Enabled = cerrar;
+			salirToolStripMenuItem.Enabled = salir;
+		}
+
+		private void EstablecerBotonesEnsamblador(bool analizar, bool paso1, bool paso2) {
+			analizarToolStripMenuItem.Enabled = btnAnalizar.Enabled = analizar;
+			paso1ToolStripMenuItem.Enabled = btnPaso1.Enabled = paso1;
+			paso2ToolStripMenuItem.Enabled = btnPaso2.Enabled = paso2;
+		}
+
+		private void EstablecerBotonesEjecutar(bool abrir, bool cargar) {
+			abrirProgramaObjetoToolStripMenuItem.Enabled = btnAbrirObjeto.Enabled = abrir;
+			cargarToolStripMenuItem.Enabled = btnCargarMemoria.Enabled = cargar;
 		}
 
 		private void Nuevo(object sender, EventArgs e) {
@@ -39,7 +59,12 @@ namespace ProyectoSIC {
 			ActiveForm.Text = "SIC";
 			DireccionArchivo.Text = "";
 			LongitudPrograma.Text = "";
-			ActivaControles();
+
+			EstablecerBotonesArchivo(true, true, true, true, true, true);
+			EstablecerBotonesEnsamblador(true, false, false);
+			EstablecerBotonesEjecutar(false, false);
+			tbPrograma.Enabled = true;
+
 			prog = new Programa();
 			intermedio.Rows.Clear();
 			dataGridTabSim.Rows.Clear();
@@ -64,7 +89,12 @@ namespace ProyectoSIC {
 				TbPrograma_TextChanged(this, null);
 				ActiveForm.Text = "SIC - " + nombre;
 				DireccionArchivo.Text = open.FileName;
-				ActivaControles();
+
+				EstablecerBotonesArchivo(true, true, true, true, true, true);
+				EstablecerBotonesEnsamblador(true, false, false);
+				EstablecerBotonesEjecutar(true, false);
+				tbPrograma.Enabled = true;
+
 				prog = new Programa();
 				intermedio.Rows.Clear();
 				dataGridTabSim.Rows.Clear();
@@ -116,7 +146,11 @@ namespace ProyectoSIC {
 			tbErrores.Clear();
 			tbRegistros.Clear();
 			textBoxRes.Clear();
-			DesactivaControles();
+
+			EstablecerBotonesArchivo(true, true, false, false, false, true);
+			EstablecerBotonesEnsamblador(false, false, false);
+			EstablecerBotonesEjecutar(true, false);
+			tbPrograma.Enabled = false;
 			textBoxRes.BackColor = Color.White;
 		}
 
@@ -162,10 +196,8 @@ namespace ProyectoSIC {
 					tbErrores.Lines = results.ToArray();
 					File.WriteAllLines(ruta + @"\" + nombre + ".t", tbErrores.Lines);
 				}
-				paso1ToolStripMenuItem.Enabled = true;
-				paso2ToolStripMenuItem.Enabled = false;
-				btnPaso1.Enabled = true;
-				btnPaso2.Enabled = false;
+				EstablecerBotonesEnsamblador(true, true, false);
+
 				tbRegistros.Clear();
 				intermedio.Rows.Clear();
 				dataGridTabSim.Rows.Clear();
@@ -232,8 +264,8 @@ namespace ProyectoSIC {
 			}
 			LongPrograma = hexCont.ToDec() - intermedio.Value(0, 0).ToDec();
 			LongitudPrograma.Text = "Tamaño del programa: " + LongPrograma.ToHex() + "H";
-			paso2ToolStripMenuItem.Enabled = true;
-			btnPaso2.Enabled = true;
+			EstablecerBotonesEnsamblador(true, true, true);
+
 		}
 
 
@@ -466,20 +498,6 @@ namespace ProyectoSIC {
 			return valido;
 		}
 
-		private void ActivaControles() {
-			tbPrograma.Enabled = true;
-			guardarToolStripMenuItem.Enabled = true;
-			guardarComoToolStripMenuItem.Enabled = true;
-			cerrarToolStripMenuItem.Enabled = true;
-			analizarToolStripMenuItem.Enabled = true;
-			paso1ToolStripMenuItem.Enabled = false;
-			paso2ToolStripMenuItem.Enabled = false;
-
-			btnAnalizar.Enabled = true;
-			btnPaso1.Enabled = false;
-			btnPaso2.Enabled = false;
-		}
-
 		private void btnCargarMemoria_Click(object sender, EventArgs e) {
 			MapaMemoria mm = new MapaMemoria(tbRegistros.Lines, LongPrograma);
 			mm.Show();
@@ -498,31 +516,17 @@ namespace ProyectoSIC {
 
 		private void tbRegistros_TextChanged(object sender, EventArgs e) {
 			if (tbRegistros.Text == "") {
-				btnCargarMemoria.Enabled = false;
-				cargarToolStripMenuItem.Enabled = false;
+				EstablecerBotonesEjecutar(true, false);
 			}
 			else {
-				btnCargarMemoria.Enabled = true; ;
-				cargarToolStripMenuItem.Enabled = true;
+				EstablecerBotonesEjecutar(true, true);
 			}
 		}
 
-		private void DesactivaControles() {
-			tbPrograma.Enabled = false;
-			btnCargarMemoria.Enabled = false;
-			cargarToolStripMenuItem.Enabled = false;
+		private void btnEjecutar_Click(object sender, EventArgs e) {
 
-			guardarToolStripMenuItem.Enabled = false;
-			guardarComoToolStripMenuItem.Enabled = false;
-			cerrarToolStripMenuItem.Enabled = false;
-
-			analizarToolStripMenuItem.Enabled = false;
-			paso1ToolStripMenuItem.Enabled = false;
-			paso2ToolStripMenuItem.Enabled = false;
-
-			btnAnalizar.Enabled = false;
-			btnPaso1.Enabled = false;
-			btnPaso2.Enabled = false;
 		}
+
+
 	}
 }

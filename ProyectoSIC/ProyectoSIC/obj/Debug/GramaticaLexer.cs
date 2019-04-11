@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from C:\Users\Becarios\Documents\SIC\ProyectoSIC\ProyectoSIC\Gramatica.g4 by ANTLR 4.6.6
+// Generated from C:\Users\Morcado\Desktop\SIC\ProyectoSIC\ProyectoSIC\Gramatica.g4 by ANTLR 4.6.6
 
 // Unreachable code detected
 #pragma warning disable 0162

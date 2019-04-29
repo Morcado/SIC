@@ -263,6 +263,7 @@ namespace ProyectoSIC {
                 }
             }
             LongPrograma = hexCont.ToDec() - intermedio.Value(0, 0).ToDec();
+            LongPrograma = hexCont.ToDec() - intermedio[0, 0].Value.ToString().ToDec();
             LongitudPrograma.Text = "Tamaño del programa: " + LongPrograma.ToHex() + "H";
             EstablecerBotonesEnsamblador(true, true, true);
 

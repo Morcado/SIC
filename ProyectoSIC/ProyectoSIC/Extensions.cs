@@ -13,9 +13,9 @@ namespace ProyectoSIC {
             return int.Parse(hexNum, System.Globalization.NumberStyles.HexNumber);
         }
 
-        /* Convierte entero a cadena hexadecimal*/
+        /* Convierte entero a cadena hexadecimal, 6 digitos*/
         public static string ToHex(this int decNum) {
-            return decNum.ToString("X");
+            return decNum.ToString("X").PadLeft(6, '0');
         }
 
         /* Convierte un caracter hexadecimal a entero*/
@@ -39,16 +39,36 @@ namespace ProyectoSIC {
             return (num.ToDec() + num2.ToDec()).ToString();
         }
 
-        /* Regresa la dirección del codigo de operacion */
+        /* Regresa la dirección de un codigo objeto */
         public static string Dir(this string codObj) {
             string binary = Convert.ToString(codObj.ToDec(), 2).PadLeft(16, '0');
             return Convert.ToInt32(binary.Substring(9), 2).ToString("X");
 
         }
 
-        /* Regresa el nemonico del codigo de operacion*/
+        /* Regresa el nemonico de un codigo objeto*/
         public static string Nemonico(this string codObj) {
             return Enum.GetName(typeof(Instrucciones), Convert.ToInt32(codObj.Substring(0, 2)));
+        }
+
+        /* Regresa el byte mas a la derecha del codigo */
+        public static string GetMSB(this string dato) {
+            return dato.Substring(4);
+        }
+
+        /* Establece el byte mas a la derecha del codigo */
+        public static void SetMSB(this string dato, string nuevo) {
+            dato = dato.Substring(0, 4) + nuevo;
+        }
+
+        /* Regresa el byte mas a la izquierda del codigo */
+        public static string GetLSB(this string dato) {
+            return dato.Substring(0, 2);
+        }
+
+        /* Establece el byte mas a la derecha del codigo */
+        public static void SetLSB(this string dato, string nuevo) {
+            dato = nuevo + dato.Substring(0, 4);
         }
 
 
@@ -57,17 +77,66 @@ namespace ProyectoSIC {
             return data.Rows[i].Cells[j].Value.ToString();
         }
 
-        /* Acceder a la memoria , recibe una dirección*/
-        public static void AccesaMemoria(this DataGridView data, int i, int j, Color color) {
-            if (i != -1 && j != -1) {
-                data.Rows[i].Cells[j].Style.BackColor = color;
-            }
+        // Suma dos numeros hexadecimales
+        public static string Sum(this string a, string b) {
+            string c;
+            int num = a.ToDec() + b.ToDec();
+            c = num.ToHex();
+            return c;
         }
 
-        /* Guarda algo en la memoria */
-        public static void GuardaMemoria(this DataGridView data, int i, int j, Color color) {
-            if (i != -1 && j != -1) {
-                data.Rows[i].Cells[j].Style.BackColor = color;
+        /* Encuentra la posicion en el datagrid de la memoria especificada, recibe una dirección de 6 de largo*/
+        public static int[] Posicion(this DataGridView mem, string direccion) {
+            int[] pos = { -1, -1 };
+            for (int i = 0; i < mem.Rows.Count; i++) {
+                if (mem.Rows[i].HeaderCell.Value.ToString().Substring(0, 5) == direccion.Substring(0, 5)) {
+                    for (int j = 0; j < 16; j++) {
+                        if (mem.Rows[i].HeaderCell.Value.ToString().Remove(5) + j.ToString("X") == direccion) {
+                            pos[0] = i;
+                            pos[1] = j;
+                            return pos;
+                        }
+                    }
+                }
+            }
+            return pos;
+        }
+
+        /* Acceder a la memoria, recibe una dirección y la cantidad de bytes a leer.
+         * regresa 3 bytes de la memoria en la direccion especificada */
+        public static string Accede(this DataGridView data, string direccion) {
+            int[] pos = data.Posicion(direccion);
+
+            string dato = "";
+            // Regresa 3 bytes a partir de la dirección especificada.
+            // Modificar si necesita otra cantidad != 3
+            for (int i = 0; i < 3; i++) {
+                dato += data.Value(pos[0], pos[1]);
+                if (pos[1] == data.Columns.Count - 1) {
+                    pos[1] = 0;
+                    pos[0]++;
+                }
+                else {
+                    pos[1]++;
+                }
+            }
+            return dato;
+        }
+
+        /* Guarda 3 bytes en la memoria , en la direccion especificada */
+        public static void Guarda(this DataGridView data, string direccion, string dato) {
+            int[] pos = data.Posicion(direccion);
+            string[] datoDividido = { dato.Substring(0, 2), dato.Substring(2, 2), dato.Substring(4, 2) };
+
+            for (int i = 0; i < 3; i++) {
+                data.Rows[pos[0]].Cells[pos[1]].Value = datoDividido[i];
+                if (pos[1] == data.Columns.Count - 1) {
+                    pos[1] = 0;
+                    pos[0]++;
+                }
+                else {
+                    pos[1]++;
+                }
             }
         }
         public static void SetColor(this DataGridView data, int i, int j, Color color) {
@@ -75,5 +144,7 @@ namespace ProyectoSIC {
                 data.Rows[i].Cells[j].Style.BackColor = color;
             }
         }
+
+
     }
 }

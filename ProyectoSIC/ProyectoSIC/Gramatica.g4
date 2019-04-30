@@ -61,7 +61,7 @@ instr_args:
 
 /* Estructura del argumento para una directiva: indica si es hexadecimal o cadena*/
 directive_args:
-	NUM|'X\'' NUM '\''|'C\'' LABEL '\''
+	NUM|'X\''NUM'\''|'C\''LABEL'\''
 ;
 
 compileUnit
@@ -85,7 +85,7 @@ START:		'START';
 END:		'END';
 
 /* Define una etiqueta de por lo menos un caracter */
-LABEL:		[A-Z]+;
+LABEL:		[A-Z]+[0-9]*|[a-zA-Z]+[0-9]*;
 
 /* Define un numero hexdecimal */
 NUM:		NUM_CHAR+('h'|'H')?;

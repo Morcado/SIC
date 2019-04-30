@@ -10,7 +10,7 @@ namespace ProyectoSIC {
     /* Conjunto de instrucciones en formato decimal*/
     public enum Instrucciones {
         ADD = 24, AND = 64, COMP = 40, DIV = 36, J = 60, JEQ = 48, JGT = 52,
-        JLT = 56, JSUB = 72, LDA = 00, LDCH = 80, LDL = 08, LDX = 04,
+        JLT = 56, JSUB = 72, LDA = 00, LDCH = 50, LDL = 08, LDX = 04,
         MUL = 32, OR = 68, RD = 216, RSUB = 76, STA = 12, STCH = 84, STL = 20,
         STSW = 232, STX = 16, SUB = 28, TD = 224, TIX = 44, WD = 220
     }
@@ -208,6 +208,7 @@ namespace ProyectoSIC {
             }
         }
 
+        /* Checar errores y demas*/
         private void Paso1(object sender, EventArgs e) {
             intermedio.RowHeadersWidth = 60;
             dataGridTabSim.Rows.Clear();
@@ -215,14 +216,9 @@ namespace ProyectoSIC {
             int contador = prog.lineas[0].Operando.ToDec();
             string hexCont = "";
             for (int i = 0; i < prog.lineas.Count; i++) {
-                hexCont = contador.ToString("X");
-                string valor = "";
-                if (prog.lineas[i].Operando != "" && char.IsDigit(prog.lineas[i].Operando[0])) {
-                    valor = prog.lineas[i].Operando;
-                }
-                else {
-                    valor = prog.lineas[i].Operando;
-                }
+                hexCont = contador.ToHex();
+                string valor = prog.lineas[i].Operando;
+                
                 intermedio.Rows.Add(hexCont, prog.lineas[i].Etiqueta, prog.lineas[i].CodigoOp, valor);
 
                 bool Repetido = false;
@@ -233,29 +229,33 @@ namespace ProyectoSIC {
                     }
                 }
                 if (prog.lineas[i].Etiqueta != "" && i != 0 && !Repetido && EsEtiquetaValida(prog.lineas[i].Etiqueta)) {
-                    dataGridTabSim.Rows.Add(prog.lineas[i].Etiqueta, hexCont);
+                    dataGridTabSim.Rows.Add(prog.lineas[i].Etiqueta, hexCont.Substring(2));
                 }
 
                 intermedio.Rows[i].HeaderCell.Value = (i + 1).ToString();
                 if (!prog.lineas[i].Error) {
-                    if (prog.lineas[i].CodigoOp == "RESW")
+                    if (prog.lineas[i].CodigoOp == "RESW") {
                         contador += prog.lineas[i].Operando.ToDec() * 3;
+                    }
                     else {
-                        if (prog.lineas[i].CodigoOp == "RESB")
-                            //if (prog.lineas[i].Operando[prog.lineas[i].Operando.Length - 1] == 'H') {
-
-                            //}
+                        if (prog.lineas[i].CodigoOp == "RESB") {
                             contador += prog.lineas[i].Operando.ToDec();
+                        }
                         else {
                             if (prog.lineas[i].CodigoOp == "BYTE") {
-                                if (prog.lineas[i].Operando.StartsWith("X'") && prog.lineas[i].Operando.EndsWith("'"))
-                                    contador += int.Parse(Math.Round((decimal)(prog.lineas[i].Operando.Length - 3) / 2, 0).ToString(), System.Globalization.NumberStyles.HexNumber);
-                                if (prog.lineas[i].Operando.StartsWith("C'") && prog.lineas[i].Operando.EndsWith("'"))
-                                    contador += int.Parse((prog.lineas[i].Operando.Length - 3).ToString(), System.Globalization.NumberStyles.HexNumber);
+                                if (prog.lineas[i].Operando.StartsWith("X'") && prog.lineas[i].Operando.EndsWith("'")) {
+                                    //contador += int.Parse(Math.Round((decimal)(prog.lineas[i].Operando.Length - 3) / 2, 0).ToString(), System.Globalization.NumberStyles.HexNumber);
+                                    contador += (prog.lineas[i].Operando.Length - 3) / 2;
+                                }
+                                if (prog.lineas[i].Operando.StartsWith("C'") && prog.lineas[i].Operando.EndsWith("'")) {
+                                    //contador += int.Parse((prog.lineas[i].Operando.Length - 3).ToString(), System.Globalization.NumberStyles.HexNumber);
+                                    contador += prog.lineas[i].Operando.Length - 3;
+                                }
                             }
                             else {
-                                if (i == 0)
+                                if (i == 0) {
                                     continue;
+                                }
                                 contador += 3;
                             }
                         }
@@ -269,7 +269,7 @@ namespace ProyectoSIC {
 
         }
 
-
+        /* cread codigo objeto */
         private void Paso2(object sender, EventArgs e) {
             foreach (DataGridViewRow row in intermedio.Rows) {
                 if (EsEtiquetaValida(row.Cells[1].Value.ToString())) {
@@ -294,10 +294,12 @@ namespace ProyectoSIC {
                             }
                             else if (row.Cells[3].Value.ToString().StartsWith("X'") && row.Cells[3].Value.ToString().EndsWith("'")) {
                                 string[] operando = row.Cells[3].Value.ToString().Split((char)39);
-                                if (operando[1].Length % 2 != 0)
+                                if (operando[1].Length % 2 != 0) {
                                     row.Cells[4].Value = "0" + operando[1];
-                                else
+                                }
+                                else {
                                     row.Cells[4].Value = operando[1];
+                                }
                             }
                             else {
                                 row.Cells[4].Value = "Error: Sintaxis";

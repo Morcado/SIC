@@ -42,7 +42,7 @@ namespace ProyectoSIC {
         /* Regresa la dirección de un codigo objeto */
         public static string Dir(this string codObj) {
             string binary = Convert.ToString(codObj.ToDec(), 2).PadLeft(16, '0');
-            return Convert.ToInt32(binary.Substring(9), 2).ToString("X");
+            return Convert.ToInt32(binary.Substring(9), 2).ToString("X").PadLeft(6, '0');
 
         }
 
@@ -139,12 +139,22 @@ namespace ProyectoSIC {
                 }
             }
         }
-        public static void SetColor(this DataGridView data, int i, int j, Color color) {
-            if (i != -1 && j != -1) {
-                data.Rows[i].Cells[j].Style.BackColor = color;
+
+        /* Colorea 3 bytes en la direccion determinada por el color especificado */
+        public static void Colorea(this DataGridView data, string direccion, Color color) {
+            int[] pos = data.Posicion(direccion);
+
+            for (int i = 0; i < 3; i++) {
+                data[pos[1], pos[0]].Style.BackColor = color;
+                if (pos[1] == data.Columns.Count - 1) {
+                    pos[1] = 0;
+                    pos[0]++;
+                }
+                else {
+                    pos[1]++;
+                }
             }
         }
-
 
     }
 }

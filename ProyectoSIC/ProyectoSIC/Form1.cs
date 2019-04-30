@@ -9,7 +9,7 @@ using System.Linq;
 namespace ProyectoSIC {
     /* Conjunto de instrucciones en formato decimal*/
     public enum Instrucciones {
-        ADD = 24, AND = 64, COMP = 40, DIV = 36, J = 60, JEQ = 48, JGT = 52,
+        ADD = 24, AND = 80, COMP = 40, DIV = 36, J = 60, JEQ = 48, JGT = 52,
         JLT = 56, JSUB = 72, LDA = 00, LDCH = 50, LDL = 08, LDX = 04,
         MUL = 32, OR = 68, RD = 216, RSUB = 76, STA = 12, STCH = 84, STL = 20,
         STSW = 232, STX = 16, SUB = 28, TD = 224, TIX = 44, WD = 220

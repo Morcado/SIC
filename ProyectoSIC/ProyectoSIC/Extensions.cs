@@ -48,7 +48,8 @@ namespace ProyectoSIC {
 
         /* Regresa el nemonico de un codigo objeto*/
         public static string Nemonico(this string codObj) {
-            return Enum.GetName(typeof(Instrucciones), Convert.ToInt32(codObj.Substring(0, 2)));
+            string cod = codObj.Substring(0, 2);
+            return Enum.GetName(typeof(Instrucciones), cod.ToDec());
         }
 
         /* Regresa el byte mas a la derecha del codigo */
@@ -141,10 +142,10 @@ namespace ProyectoSIC {
         }
 
         /* Colorea 3 bytes en la direccion determinada por el color especificado */
-        public static void Colorea(this DataGridView data, string direccion, Color color) {
+        public static void Colorea(this DataGridView data, string direccion, Color color, int n) {
             int[] pos = data.Posicion(direccion);
 
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < n; i++) {
                 data[pos[1], pos[0]].Style.BackColor = color;
                 if (pos[1] == data.Columns.Count - 1) {
                     pos[1] = 0;

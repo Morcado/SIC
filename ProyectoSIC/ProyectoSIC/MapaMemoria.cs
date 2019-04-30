@@ -10,10 +10,10 @@ using System.Windows.Forms;
 
 namespace ProyectoSIC {
     public partial class MapaMemoria : Form {
-        private string A = "FFFFFF";
-        private string L = "FFFFFF";
+        private string A = "000000";
+        private string L = "000000";
         private string X = "000000";
-        private string CP = "FFFFFF";
+        private string CP = "000000";
         private string CC = "";
         private string SW = "FFFFFF";
 
@@ -35,7 +35,7 @@ namespace ProyectoSIC {
                 memoria.Columns.Add(i.ToString("X"), i.ToString("X"));
                 memoria.Columns[i].Width = 30;
             }
-
+            dir = dir.Substring(0, 5) + "0";
             // Agrega las filas de la tabla + 1
             for (int i = 0; i < (int)Math.Ceiling(objText[0].Substring(13, 6).ToDec() / 16.0) + 1; i++) {
                 memoria.Rows.Add("FF", "FF", "FF", "FF", "FF", "FF", "FF", "FF", "FF", "FF", "FF", "FF", "FF", "FF", "FF", "FF");
@@ -62,7 +62,7 @@ namespace ProyectoSIC {
             CP = textBoxCP.Text = objText[0].Substring(7, 6);
             //memoria[2, 2].Selected = true;
             memoria.ClearSelection();
-            memoria.Colorea(dirInicio, Color.LightBlue);
+            memoria.Colorea(dirInicio, Color.LightBlue, 3);
         }
     
         private void Button1_Click(object sender, EventArgs e) {
@@ -76,8 +76,8 @@ namespace ProyectoSIC {
             string nemonico = codObj.Nemonico();
             string direccion = codObj.Indexado() ? codObj.Dir() : codObj.Dir().Sum(X);
 
-            memoria.Colorea(CP, Color.White);
-
+            memoria.Colorea(CP, Color.White, 3);
+            AgregaLinea(nemonico, direccion);
             switch (nemonico) {
                 case "ADD":
                  
@@ -161,24 +161,29 @@ namespace ProyectoSIC {
                     break;
                 case "STA":
                     memoria.Guarda(direccion, A);
+                    memoria.Colorea(direccion, Color.OrangeRed, 3);
                     CP = (CP.ToDec() + 3).ToHex();
                     break;
                 case "STCH":
                     dato = memoria.Accede(direccion);
                     dato.SetMSB(A.GetLSB());
                     memoria.Guarda(direccion, dato);
+                    memoria.Colorea(direccion, Color.OrangeRed, 1);
                     CP = (CP.ToDec() + 3).ToHex();
                     break;
                 case "STL":
                     memoria.Guarda(direccion, L);
+                    memoria.Colorea(direccion, Color.OrangeRed, 3);
                     CP = (CP.ToDec() + 3).ToHex();
                     break;
                 case "STSW":
                     memoria.Guarda(direccion, SW);
+                    memoria.Colorea(direccion, Color.OrangeRed, 3);
                     CP = (CP.ToDec() + 3).ToHex();
                     break;
                 case "STX":
                     memoria.Guarda(direccion, X);
+                    memoria.Colorea(direccion, Color.OrangeRed, 3);
                     CP = (CP.ToDec() + 3).ToHex();
                     break;
                 case "SUB":
@@ -194,6 +199,16 @@ namespace ProyectoSIC {
                 case "TIX":
                     X = (X.ToDec() + 1).ToHex();
                     CP = (CP.ToDec() + 3).ToHex();
+
+                    n1 = X.ToDec();
+                    n2 = memoria.Accede(direccion).ToDec();
+                    if (n1 < n2) {
+                        CC = "<";
+                    }
+                    else {
+                        CC = n1 > n2 ? ">" : "=";
+                    }
+                    CP = (CP.ToDec() + 3).ToHex();
                     break;
                 case "WD":
                     /* pendiente */
@@ -203,12 +218,18 @@ namespace ProyectoSIC {
                     MessageBox.Show("Operación inválida. Termina ejecución");
                     break;
             }
-            memoria.Colorea(CP, Color.LightBlue);
+            memoria.Colorea(CP, Color.LightBlue, 3);
             textBoxA.Text = A;
             textBoxCP.Text = CP;
             textBoxX.Text = X;
             textBoxL.Text = L;
+            
+        }
 
+        public void AgregaLinea(string nemonico, string direccion) {
+            List<string> lines = textBox5.Lines.ToList();
+            lines.Add(nemonico + ", " + CP + ", " + direccion);
+            textBox5.Lines = lines.ToArray();
         }
 
         /* Avanza un paso en la ejecución del programa*/

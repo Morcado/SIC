@@ -38,77 +38,66 @@ public interface IGramaticaVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitProg([NotNull] GramaticaParser.ProgContext context);
-
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="GramaticaParser.start"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitStart([NotNull] GramaticaParser.StartContext context);
-
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="GramaticaParser.end"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitEnd([NotNull] GramaticaParser.EndContext context);
-
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="GramaticaParser.input"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitInput([NotNull] GramaticaParser.InputContext context);
-
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="GramaticaParser.propositions"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitPropositions([NotNull] GramaticaParser.PropositionsContext context);
-
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="GramaticaParser.proposition"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitProposition([NotNull] GramaticaParser.PropositionContext context);
-
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="GramaticaParser.instruction"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitInstruction([NotNull] GramaticaParser.InstructionContext context);
-
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="GramaticaParser.directive"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitDirective([NotNull] GramaticaParser.DirectiveContext context);
-
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="GramaticaParser.label"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitLabel([NotNull] GramaticaParser.LabelContext context);
-
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="GramaticaParser.instr_args"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitInstr_args([NotNull] GramaticaParser.Instr_argsContext context);
-
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="GramaticaParser.directive_args"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitDirective_args([NotNull] GramaticaParser.Directive_argsContext context);
-
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="GramaticaParser.compileUnit"/>.
 	/// </summary>

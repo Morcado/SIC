@@ -74,7 +74,7 @@ namespace ProyectoSIC {
             int n1, n2;
             string dato;
             string nemonico = codObj.Nemonico();
-            string direccion = codObj.Indexado() ? codObj.Dir() : codObj.Dir().Sum(X);
+            string direccion = codObj.Indexado() ? codObj.Dir().Sum(X) : codObj.Dir();
 
             memoria.Colorea(CP, Color.White, 3);
             AgregaLinea(nemonico, direccion);
@@ -129,7 +129,7 @@ namespace ProyectoSIC {
                     CP = (CP.ToDec() + 3).ToHex();
                     break;
                 case "LDCH":
-                    A.SetLSB(memoria.Accede(direccion).GetMSB());
+                    A = A.SetMSB(memoria.Accede(direccion).GetLSB());
                     CP = (CP.ToDec() + 3).ToHex();
                     break;
                 case "LDL":
@@ -160,29 +160,29 @@ namespace ProyectoSIC {
                     CP = L;
                     break;
                 case "STA":
-                    memoria.Guarda(direccion, A);
+                    memoria.Guarda(direccion, A, 3);
                     memoria.Colorea(direccion, Color.OrangeRed, 3);
                     CP = (CP.ToDec() + 3).ToHex();
                     break;
                 case "STCH":
-                    dato = memoria.Accede(direccion);
-                    dato.SetMSB(A.GetLSB());
-                    memoria.Guarda(direccion, dato);
+                    
+                    dato = A.GetMSB();
+                    memoria.Guarda(direccion, dato, 1);
                     memoria.Colorea(direccion, Color.OrangeRed, 1);
                     CP = (CP.ToDec() + 3).ToHex();
                     break;
                 case "STL":
-                    memoria.Guarda(direccion, L);
+                    memoria.Guarda(direccion, L, 3);
                     memoria.Colorea(direccion, Color.OrangeRed, 3);
                     CP = (CP.ToDec() + 3).ToHex();
                     break;
                 case "STSW":
-                    memoria.Guarda(direccion, SW);
+                    memoria.Guarda(direccion, SW, 3);
                     memoria.Colorea(direccion, Color.OrangeRed, 3);
                     CP = (CP.ToDec() + 3).ToHex();
                     break;
                 case "STX":
-                    memoria.Guarda(direccion, X);
+                    memoria.Guarda(direccion, X, 3);
                     memoria.Colorea(direccion, Color.OrangeRed, 3);
                     CP = (CP.ToDec() + 3).ToHex();
                     break;
@@ -208,7 +208,7 @@ namespace ProyectoSIC {
                     else {
                         CC = n1 > n2 ? ">" : "=";
                     }
-                    CP = (CP.ToDec() + 3).ToHex();
+                    
                     break;
                 case "WD":
                     /* pendiente */

@@ -100,3 +100,4 @@ C:\Users\torre\Downloads\ProyectoSIC\ProyectoSIC\obj\Debug\ProyectoSIC.exe
 C:\Users\torre\Downloads\ProyectoSIC\ProyectoSIC\obj\Debug\ProyectoSIC.pdb
 C:\Users\Morcado\Desktop\SIC\ProyectoSIC\ProyectoSIC\obj\Debug\ProyectoSIC.MapaMemoria.resources
 C:\Users\Becarios\Documents\SIC\ProyectoSIC\ProyectoSIC\obj\Debug\ProyectoSIC.MapaMemoria.resources
+C:\Users\torre\Desktop\ProyectoSIC\ProyectoSIC\obj\Debug\ProyectoSIC.MapaMemoria.resources

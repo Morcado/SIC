@@ -58,8 +58,9 @@ namespace ProyectoSIC {
         }
 
         /* Establece el byte mas a la derecha del codigo */
-        public static void SetMSB(this string dato, string nuevo) {
+        public static string SetMSB(this string dato, string nuevo) {
             dato = dato.Substring(0, 4) + nuevo;
+            return dato;
         }
 
         /* Regresa el byte mas a la izquierda del codigo */
@@ -68,8 +69,9 @@ namespace ProyectoSIC {
         }
 
         /* Establece el byte mas a la derecha del codigo */
-        public static void SetLSB(this string dato, string nuevo) {
+        public static string SetLSB(this string dato, string nuevo) {
             dato = nuevo + dato.Substring(0, 4);
+            return dato;
         }
 
 
@@ -125,11 +127,19 @@ namespace ProyectoSIC {
         }
 
         /* Guarda 3 bytes en la memoria , en la direccion especificada */
-        public static void Guarda(this DataGridView data, string direccion, string dato) {
+        public static void Guarda(this DataGridView data, string direccion, string dato, int v) {
             int[] pos = data.Posicion(direccion);
-            string[] datoDividido = { dato.Substring(0, 2), dato.Substring(2, 2), dato.Substring(4, 2) };
+            List<string> datoDividido = new List<string>();
+            if (v == 3) {
+                datoDividido.Add(dato.Substring(0, 2));
+                datoDividido.Add(dato.Substring(2, 2));
+                datoDividido.Add(dato.Substring(4, 2));
+            }
+            else {
+                datoDividido.Add(dato.Substring(0, 2));
+            }
 
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < v; i++) {
                 data.Rows[pos[0]].Cells[pos[1]].Value = datoDividido[i];
                 if (pos[1] == data.Columns.Count - 1) {
                     pos[1] = 0;

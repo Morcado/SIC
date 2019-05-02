@@ -271,6 +271,7 @@ namespace ProyectoSIC {
 
         /* crea codigo objeto */
         private void Paso2(object sender, EventArgs e) {
+            tbRegistros.Clear();
             foreach (DataGridViewRow row in intermedio.Rows) {
                 if (EsEtiquetaValida(row.Cells[1].Value.ToString())) {
                     if (row.Cells[2].Value.ToString() != "START" && row.Cells[2].Value.ToString() != "END" && row.Cells[2].Value.ToString() != "RESB" && row.Cells[2].Value.ToString() != "RESW") {
@@ -434,8 +435,7 @@ namespace ProyectoSIC {
                                 RegistroT = "";
                             }
                         }
-                        else
-                        {
+                        else {
                             T.Add(RegistroT);
                             RegistroT = "";
                         }

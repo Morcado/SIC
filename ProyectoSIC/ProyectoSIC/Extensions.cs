@@ -41,8 +41,12 @@ namespace ProyectoSIC {
 
         /* Regresa la dirección de un codigo objeto */
         public static string Dir(this string codObj) {
-            string binary = Convert.ToString(codObj.ToDec(), 2).PadLeft(16, '0');
-            return Convert.ToInt32(binary.Substring(9), 2).ToString("X").PadLeft(6, '0');
+            string binary = "";
+
+            foreach (char car in codObj) {
+                binary += Convert.ToString(car.ToDec(), 2).PadLeft(4, '0');
+            }
+            return Convert.ToInt32(binary.Substring(8), 2).ToString("X").PadLeft(6, '0');
 
         }
 
@@ -113,14 +117,19 @@ namespace ProyectoSIC {
             string dato = "";
             // Regresa 3 bytes a partir de la dirección especificada.
             // Modificar si necesita otra cantidad != 3
-            for (int i = 0; i < 3; i++) {
-                dato += data.Value(pos[0], pos[1]);
-                if (pos[1] == data.Columns.Count - 1) {
-                    pos[1] = 0;
-                    pos[0]++;
-                }
-                else {
-                    pos[1]++;
+            if (pos[0] == -1 && pos[1] == -1) {
+                MessageBox.Show("Instrucción inválida. Ejecución terminada");
+            }
+            else {
+                for (int i = 0; i < 3; i++) {
+                    dato += data.Value(pos[0], pos[1]);
+                    if (pos[1] == data.Columns.Count - 1) {
+                        pos[1] = 0;
+                        pos[0]++;
+                    }
+                    else {
+                        pos[1]++;
+                    }
                 }
             }
             return dato;

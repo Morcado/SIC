@@ -6,17 +6,22 @@ using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 
 namespace ProyectoSIC {
+
 	public class Linea {
+
 		public string Etiqueta { get; set; }
 		public string CodigoOp { get; set; }
 		public string Operando { get; set; }
-        public string Direccionamiento { get; set; }
         public bool Indexado { get; set; }
 		public bool EsHexadecimal { get; set; }
 		public bool Error { get; set; }
 		public int TipoOperando;
+        public List<string> Instr1 = new List<string>
+        {
+            "FIX", "FLOAT", "HIO", "NORM", "SIO", "TIO"
+        };
 
-		public Linea(string lin) {
+        public Linea(string lin) {
 			lin.Replace("\t", " ");
 			lin = Regex.Replace(lin, @"\s+", " ");
 			string[] valores = lin.Split(' ');
@@ -43,7 +48,7 @@ namespace ProyectoSIC {
 			}
 			else {
 				if (valores.Length == 2) {
-					if (valores[1] == "RSUB" || valores[1] == "END") {
+					if (valores[1] == "RSUB" || valores[1] == "END" || Instr1.Contains(valores[1])) {
 						Etiqueta = "";
 						CodigoOp = valores[1];
 						Operando = "";

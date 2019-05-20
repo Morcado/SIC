@@ -1,0 +1,24 @@
+C:\Users\Luise\Desktop\ProyectoSICXE\ProyectoSIC\obj\Debug\ProyectoSICXE.csprojAssemblyReference.cache
+C:\Users\Luise\Desktop\ProyectoSICXE\ProyectoSIC\obj\Debug\ProyectoSIC.exe
+C:\Users\Luise\Desktop\ProyectoSICXE\ProyectoSIC\obj\Debug\ProyectoSIC.pdb
+C:\Users\Luise\Desktop\ProyectoSICXE\ProyectoSIC\bin\Debug\ProyectoSIC.exe.config
+C:\Users\Luise\Desktop\ProyectoSICXE\ProyectoSIC\bin\Debug\ProyectoSIC.exe
+C:\Users\Luise\Desktop\ProyectoSICXE\ProyectoSIC\bin\Debug\ProyectoSIC.pdb
+C:\Users\Luise\Desktop\ProyectoSICXE\ProyectoSIC\bin\Debug\Antlr4.Runtime.dll
+C:\Users\Luise\Desktop\ProyectoSICXE\ProyectoSIC\bin\Debug\Antlr4.Runtime.xml
+C:\Users\Luise\Desktop\ProyectoSICXE\ProyectoSIC\obj\Debug\GramaticaLexer.cs
+C:\Users\Luise\Desktop\ProyectoSICXE\ProyectoSIC\obj\Debug\GramaticaParser.cs
+C:\Users\Luise\Desktop\ProyectoSICXE\ProyectoSIC\obj\Debug\GramaticaListener.cs
+C:\Users\Luise\Desktop\ProyectoSICXE\ProyectoSIC\obj\Debug\GramaticaBaseListener.cs
+C:\Users\Luise\Desktop\ProyectoSICXE\ProyectoSIC\obj\Debug\GramaticaVisitor.cs
+C:\Users\Luise\Desktop\ProyectoSICXE\ProyectoSIC\obj\Debug\GramaticaBaseVisitor.cs
+C:\Users\Luise\Desktop\ProyectoSICXE\ProyectoSIC\obj\Debug\ProyectoSICXE.csproj.Antlr4GeneratedCodeFileListAbsolute.txt
+C:\Users\Luise\Desktop\ProyectoSICXE\ProyectoSIC\obj\Debug\ProyectoSIC.Principal.resources
+C:\Users\Luise\Desktop\ProyectoSICXE\ProyectoSIC\obj\Debug\ProyectoSIC.MapaMemoria.resources
+C:\Users\Luise\Desktop\ProyectoSICXE\ProyectoSIC\obj\Debug\ProyectoSIC.Properties.Resources.resources
+C:\Users\Luise\Desktop\ProyectoSICXE\ProyectoSIC\obj\Debug\ProyectoSICXE.csproj.GenerateResource.cache
+C:\Users\Luise\Desktop\ProyectoSICXE\ProyectoSIC\obj\Debug\ProyectoSICXE.csproj.CoreCompileInputs.cache
+C:\Users\Luise\Desktop\ProyectoSICXE\ProyectoSIC\obj\Debug\ProyectoSICXE.csproj.CopyComplete
+C:\Users\Luise\OneDrive - Universidad Autonoma de San Luis Potosi - UASLP\UNI\8VO SEMESTRE\Labo progra de sistemas\ProyectoSICXE (Final)‌\ProyectoSICXE\ProyectoSIC\obj\Debug\ProyectoSICXE.csprojAssemblyReference.cache
+C:\Users\Luise\OneDrive - Universidad Autonoma de San Luis Potosi - UASLP\UNI\8VO SEMESTRE\Labo progra de sistemas\ProyectoSICXE (Final)‌\ProyectoSICXE\ProyectoSIC\obj\Debug\ProyectoSIC.exe
+C:\Users\Luise\OneDrive - Universidad Autonoma de San Luis Potosi - UASLP\UNI\8VO SEMESTRE\Labo progra de sistemas\ProyectoSICXE (Final)‌\ProyectoSICXE\ProyectoSIC\obj\Debug\ProyectoSIC.pdb

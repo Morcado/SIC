@@ -41,12 +41,12 @@ proposition:
 /* Estructura de una instrucción. En los argumentos puede
 	llevar una etiqueta direccionada o indexada */
 instruction:
-	label INSTR|'+'INSTR instr_args ENDL|TIPO2 instr_args2|TIPO1
+	label INSTR3 instr_args ENDL|'+'INSTR3 instr_args ENDL|INSTR2 instr_args2|INSTR1
 ;
 
 /* Estructura de la directiva*/
 directive:
-	label DIRECTIVE directive_args ENDL
+	label DIRECTIVE directive_args|'BASE' LABEL ENDL
 ;
 
 /*Define si existe o no la etiqueta para una instruccion*/
@@ -56,7 +56,7 @@ label:
 
 /* Estructura de una etiqueta, que puede ser direccionada o indexada, o no tenerla */
 instr_args:
-	LABEL', X'|LABEL',X'|LABEL?|'@'LABEL|'#'LABEL
+	LABEL', X'|LABEL',X'|'@'LABEL|'#'LABEL|NUM|'@'NUM|'#'NUM|LABEL?
 ;
 
 instr_args2:
@@ -78,15 +78,16 @@ compileUnit
 
 
 /* Palabras reservadas para los codigos de operación */
-INSTR:		'ADD'|'AND'|'COMP'|'DIV'|'J'|'JEQ'|'JGT'|'JLT'|'JSUB'|'LDA'|'LDCH'|'LDL'|'LDX'
-			|'MUL'|'OR'|'RD'|'RSUB'|'STA'|'STCH'
-			|'STL'|'STSW'|'STX'|'SUB'|'TD'|'TIX'|'WD';
+INSTR1:		'FIX'|'FLOAT'|'HIO'|'NORM'|'SIO'|'TIO';
 
-TIPO1:		'FIX'|'FLOAT'|'HIO'|'NORM'|'SIO'|'TIO'
+INSTR2:		'ADDR'|'CLEAR'|'COMPR'|'DIVR'|'MULR'|'RMO'|'SHIFTL'|'SHIFTR'|'SUBR'|'SVC'|'TIXR';
 
-TIPO2:		
+INSTR3:		'ADD'|'ADDF'|'AND'|'COMP'|'COMPF'|'DIV'|'DIVF'|'J'|'JEQ'|'JGT'|'JLT'
+			|'JSUB'|'LDA'|'LDB'|'LDCH'|'LDF'|'LDL'|'LDS'|'LDT'|'LDX'|'LPS'
+			|'MUL'|'MULF'|'OR'|'RD'|'RSUB'|'SSK'|'STA'|'STB'|'STCH'|'STF'|'STI'
+			|'STL'|'STS'|'STSW'|'STT'|'STX'|'SUB'|'SUBF'|'TD'|'TIX'|'WD';
 
-REG:
+REG:		'A'|'X'|'L'|'B'|'S'|'T'|'F';
 
 /* Palabras reservadas para las directivas */
 DIRECTIVE:	'BYTE'|'WORD'|'RESB'|'RESW';

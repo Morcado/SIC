@@ -1,0 +1,6 @@
+C:\Users\Luise\Desktop\ProyectoSICXE\ProyectoSIC\obj\Debug\GramaticaLexer.cs
+C:\Users\Luise\Desktop\ProyectoSICXE\ProyectoSIC\obj\Debug\GramaticaParser.cs
+C:\Users\Luise\Desktop\ProyectoSICXE\ProyectoSIC\obj\Debug\GramaticaListener.cs
+C:\Users\Luise\Desktop\ProyectoSICXE\ProyectoSIC\obj\Debug\GramaticaBaseListener.cs
+C:\Users\Luise\Desktop\ProyectoSICXE\ProyectoSIC\obj\Debug\GramaticaVisitor.cs
+C:\Users\Luise\Desktop\ProyectoSICXE\ProyectoSIC\obj\Debug\GramaticaBaseVisitor.cs

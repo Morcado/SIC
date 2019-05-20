@@ -18,6 +18,7 @@ namespace ProyectoSIC {
         private string SW = "FFFFFF";
         private int tamProg = 0;
         private string[] obj;
+
         public MapaMemoria(string[] objText, int longPrograma) {
             InitializeComponent();
             obj = objText;
@@ -30,13 +31,14 @@ namespace ProyectoSIC {
             textBoxL.Text = L;
             textBoxX.Text = X;
 
-
             string dir = objText[0].Substring(7, 6);
             string dirInicio = dir;
             int[] pos;
             tamProg = objText[0].Substring(13, 6).ToDec() + dir.ToDec();
 
             label7.Text = objText[0].Substring(13, 6);
+            label10.Text = objText[1].Substring(1, 6);
+
             memoria.RowHeadersWidth = 80;
             // Agrega las columnas de la tabal
             for (int i = 0; i < 16; i++) {
@@ -71,10 +73,6 @@ namespace ProyectoSIC {
             //memoria[2, 2].Selected = true;
             memoria.ClearSelection();
             memoria.Colorea(dirInicio, Color.LightBlue, 3);
-        }
-
-        private void Button1_Click(object sender, EventArgs e) {
-
         }
 
         /* Ejecuta una instrucción de codigo objeto*/

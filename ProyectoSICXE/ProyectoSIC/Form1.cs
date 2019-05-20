@@ -20,6 +20,25 @@ namespace ProyectoSIC {
     }
 
     public partial class Principal : Form {
+
+        public List<string> Instr1 = new List<string>
+        {
+            "FIX", "FLOAT", "HIO", "NORM", "SIO", "TIO"
+        };
+
+        public List<string> Instr2 = new List<string>
+        {
+            "ADDR", "CLEAR", "COMPR", "DIVR", "MULR", "RMO", "SHIFTL", "SHIFTR", "SUBR", "SVC", "TIXR"
+        };
+
+        public List<string> Instr3 = new List<string>
+        {
+            "ADD", "ADDF", "AND", "COMP", "COMPF", "DIV", "DIVF", "J", "JEQ", "JGT", "JLT",
+            "JSUB", "LDA", "LDB", "LDCH", "LDF", "LDL", "LDS", "LDT", "LDX", "LPS",
+            "MUL", "MULF", "OR", "RD", "RSUB", "SSK", "STA", "STB", "STCH", "STF", "STI",
+            "STL", "STS", "STSW", "STT", "STX", "SUB", "SUBF", "TD", "TIX", "WD"
+        };
+        private bool SICXE;
         public string nombre, ruta;
         private Programa prog;
         private int LongPrograma;
@@ -29,6 +48,7 @@ namespace ProyectoSIC {
             InitializeComponent();
             tbPrograma.Select();
             LongitudPrograma.Text = "";
+            SICXE = false;
         }
 
         private void EstablecerBotonesArchivo(bool nuevo, bool abrir, bool guardar, bool guardarComo, bool cerrar, bool salir) {
@@ -77,12 +97,19 @@ namespace ProyectoSIC {
         private void Abrir(object sender, EventArgs e) {
             OpenFileDialog open = new OpenFileDialog {
                 InitialDirectory = Application.StartupPath + "\\example",
-                Filter = "SIC File (*.s)|*.s|All files (*.*)|*.*",
-                DefaultExt = ".s"
+                Filter = "SIC File|*.s|SICXE File|*.x"
             };
             if (open.ShowDialog() == DialogResult.OK) {
                 ruta = Directory.GetParent(open.FileName).ToString();
                 tbPrograma.Lines = File.ReadAllLines(open.FileName);
+                if (open.FileName.EndsWith(".x"))
+                {
+                    SICXE = true;
+                }
+                else if (open.FileName.EndsWith(".s"))
+                {
+                    SICXE = false;
+                }
                 string[] files = open.FileName.Split((char)92);
                 string[] file = files[files.Length - 1].Split('.');
                 nombre = file[0];
@@ -107,7 +134,10 @@ namespace ProyectoSIC {
 
         private void Guardar(object sender, EventArgs e) {
             if (ruta != null) {
-                File.WriteAllLines(ruta + @"\" + nombre + ".s", tbPrograma.Lines);
+                if (!SICXE)
+                    File.WriteAllLines(ruta + @"\" + nombre + ".s", tbPrograma.Lines);
+                else
+                    File.WriteAllLines(ruta + @"\" + nombre + ".x", tbPrograma.Lines);
                 tbPrograma.DeselectAll();
             }
             else {
@@ -118,8 +148,7 @@ namespace ProyectoSIC {
         private void GuardarComo(object sender, EventArgs e) {
             SaveFileDialog save = new SaveFileDialog {
                 InitialDirectory = Application.StartupPath + "\\example",
-                Filter = "SIC File (*.s)|*.s|All files (*.*)|*.*",
-                DefaultExt = ".s"
+                Filter = "SIC File|*.s|SICXE File|*.x"
             };
             if (save.ShowDialog() == DialogResult.OK) {
                 File.WriteAllLines(save.FileName, tbPrograma.Lines);
@@ -161,6 +190,7 @@ namespace ProyectoSIC {
                 int cont = 1;
                 bool correcto = true;
                 List<string> results = new List<string>();
+                tbErrores.Clear();
                 prog.lineas.Clear();
                 foreach (string line in tbPrograma.Lines) {
                     if (line != "") { 
@@ -194,10 +224,12 @@ namespace ProyectoSIC {
                     textBoxRes.ForeColor = Color.White;
                     textBoxRes.Text = "ERROR";
                     tbErrores.Lines = results.ToArray();
-                    File.WriteAllLines(ruta + @"\" + nombre + ".t", tbErrores.Lines);
                 }
                 EstablecerBotonesEnsamblador(true, true, false);
-
+                if (SICXE)
+                    File.WriteAllLines(ruta + @"\" + nombre + ".tx", tbErrores.Lines);
+                else
+                    File.WriteAllLines(ruta + @"\" + nombre + ".ts", tbErrores.Lines);
                 tbRegistros.Clear();
                 intermedio.Rows.Clear();
                 dataGridTabSim.Rows.Clear();
@@ -218,9 +250,7 @@ namespace ProyectoSIC {
             for (int i = 0; i < prog.lineas.Count; i++) {
                 hexCont = contador.ToHex();
                 string valor = prog.lineas[i].Operando;
-                
                 intermedio.Rows.Add(hexCont, prog.lineas[i].Etiqueta, prog.lineas[i].CodigoOp, valor);
-
                 bool Repetido = false;
                 foreach (DataGridViewRow row in dataGridTabSim.Rows) {
                     if (row.Cells[0].Value.ToString() == prog.lineas[i].Etiqueta) {
@@ -256,7 +286,29 @@ namespace ProyectoSIC {
                                 if (i == 0) {
                                     continue;
                                 }
-                                contador += 3;
+                                if (!SICXE)
+                                    contador += 3;
+                                else
+                                {
+                                    if (Instr1.Contains(prog.lineas[i].CodigoOp))
+                                    {
+                                        contador += 1;
+                                    }
+                                    else if (Instr2.Contains(prog.lineas[i].CodigoOp))
+                                    {
+                                        contador += 2;
+                                    }
+                                    else if (Instr3.Contains(prog.lineas[i].CodigoOp))
+                                    {
+                                        contador += 3;
+                                    }
+                                    else if (prog.lineas[i].CodigoOp.Contains("+"))
+                                    {
+                                        string Codigo = prog.lineas[i].CodigoOp.Substring(1);
+                                        if (Instr3.Contains(Codigo))
+                                            contador += 4;
+                                    }
+                                }
                             }
                         }
                     }

@@ -49,6 +49,8 @@
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.btnReiniciar = new System.Windows.Forms.Button();
             this.btnPaso = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.memoria)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -212,7 +214,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(415, 12);
+            this.label6.Location = new System.Drawing.Point(441, 444);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(113, 13);
             this.label6.TabIndex = 3;
@@ -221,7 +223,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(531, 12);
+            this.label7.Location = new System.Drawing.Point(557, 444);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(35, 13);
             this.label7.TabIndex = 4;
@@ -308,11 +310,31 @@
             this.btnPaso.UseVisualStyleBackColor = true;
             this.btnPaso.Click += new System.EventHandler(this.BtnPaso_Click);
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(185, 444);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(41, 13);
+            this.label10.TabIndex = 10;
+            this.label10.Text = "label10";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(82, 444);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(97, 13);
+            this.label11.TabIndex = 9;
+            this.label11.Text = "Direccion de inicio:";
+            // 
             // MapaMemoria
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1211, 482);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.textBox5);
@@ -359,5 +381,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.TextBox textBoxCC;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
     }
 }
